@@ -17,3 +17,4 @@ $ sudo apt-get install build-essential clang bison flex \
     libboost-python-dev libboost-filesystem-dev zlib1g-dev
 $ make 
 $ sudo make install
+![image alt](https://github.com/ashika-ch/RISC-V-SoC-Tapeout-Program-My-Journey/blob/f96e119d18b7337faf3de1f4630b24713a81a348/Yosys.png)
