@@ -1,7 +1,10 @@
 # RISC-V-SoC-Tapeout-Program-My-Journey
 👩‍💻 Participant: Ashika C H 
+<br>
 📍 Program: RISC-V Reference SoC Tapeout Program (VSD) 
-🏭 Impact: Part of India’s largest collaborative open-source tapeout with 3500+ participants  .
+<br>
+🏭 Impact: Part of India’s largest collaborative open-source tapeout with 3500+ participants .
+<br>
 This repository tracks my week-by-week progress in the SoC Tapeout Program, covering everything from RTL design to GDSII.
 
 <details>
@@ -67,8 +70,36 @@ make
 make install 
 ```
 <img width="984" height="679" alt="Image" src="https://github.com/user-attachments/assets/4e0ae6a6-7eec-46ad-9bfc-de1c4ed42edd">
-</details>
 
+🛠️ Week 0 — Setup & Tools
+
+🚀 Foundation Week — setting up the environment to begin the RISC-V SoC Tapeout journey.
+
+🎯 Objectives
+
+✔️ Understand program scope & flow (RTL → Synthesis → PD → Tapeout)
+✔️ Install & configure open-source EDA tools
+✔️ Validate environment with test runs
+
+🧰 Tools Installed
+
+📝 Yosys → Logic Synthesis
+🎨 Magic → Layout & DRC/LVS checks
+📊 KLayout → GDSII Visualization
+📡GTKWave → Simulation & waveform analysis
+
+🔑 Key Learnings
+
+🌐 Explored the open-source EDA ecosystem
+🧩 Understood how tools connect in the SoC flow
+🛠️ Completed first test synthesis & layout runs successfully
+🔗 Realized the importance of environment setup as the backbone for the entire tapeout process
+
+✅ Week 0 Status
+🟢 Setup Complete → Ready to begin RTL design in Week 1
+
+✨ “Week 0 laid the foundation — from here, every week builds one more layer towards tapeout.”
+</details>
 
 
 <details>
