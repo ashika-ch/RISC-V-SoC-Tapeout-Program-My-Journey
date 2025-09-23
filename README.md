@@ -4,7 +4,9 @@
 🏭 Impact: Part of India’s largest collaborative open-source tapeout with 3500+ participants  .
 This repository tracks my week-by-week progress in the SoC Tapeout Program, covering everything from RTL design to GDSII.
 
-
+<details>
+	<summary>Day 0 - Tools Installation </summary>
+    
 # Day 0 - Tools Installation
 ## Yosys
 ```
@@ -17,7 +19,7 @@ $ sudo apt-get install build-essential clang bison flex \
     libboost-python-dev libboost-filesystem-dev zlib1g-dev
 $ make 
 $ sudo make install
-
+```
 <img width="777" height="496" alt="Image" src="https://github.com/user-attachments/assets/07c16b28-8c3c-42fd-8915-6742bbfdb04c">
 
 ## Iverilog
