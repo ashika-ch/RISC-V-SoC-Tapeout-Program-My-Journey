@@ -6,8 +6,9 @@ This repository tracks my week-by-week progress in the SoC Tapeout Program, cove
 
 <details>
 	<summary>Day 0 - Tools Installation </summary>
-    
+
 # Day 0 - Tools Installation
+
 ## Yosys
 ```
 $ git clone https://github.com/YosysHQ/yosys.git
@@ -26,3 +27,49 @@ $ sudo make install
 ```
 $ sudo apt-get install iverilog
 ```
+<img width="750" height="280" alt="Image" src="https://github.com/user-attachments/assets/73934186-9120-4efd-ab9c-830e09850606">
+
+## GTKWave
+```
+$ sudo apt update
+$ sudo apt install gtkwave
+```
+<img width="1109" height="725" alt="Image" src="https://github.com/user-attachments/assets/bc857c53-b062-4c9d-a008-a3753eae8eec">
+
+## NgspiceM
+```
+After downloading the tarball from https://sourceforge.net/projects/ngspice/files/ to a local
+directory, unpack it using:
+$ tar -zxvf ngspice-37.tar.gz
+$ cd ngspice-37
+$ mkdir release
+$ cd release
+$ ../configure --with-x --with-readline=yes --disable-debug
+$ make
+$ sudo make install 
+```
+<img width="777" height="496" alt="Image" src="https://github.com/user-attachments/assets/649a46f0-8d79-40cd-a2db-0dfde9474467">
+
+## Magic
+```
+$ sudo apt-get install m4
+$ sudo apt-get install tcsh
+$ sudo apt-get install csh
+$ sudo apt-get install libx11-dev
+$ sudo apt-get install tcl-dev tk-dev
+$ sudo apt-get install libcairo2-dev
+$ sudo apt-get install mesa-common-dev libglu1-mesa-dev
+$ sudo apt-get install libncurses-dev
+git clone https://github.com/RTimothyEdwards/magic
+cd magic
+./configure
+make
+make install 
+```
+<img width="984" height="679" alt="Image" src="https://github.com/user-attachments/assets/4e0ae6a6-7eec-46ad-9bfc-de1c4ed42edd">
+</details>
+
+
+
+<details>
+<summary>Day 1 - Introduction to Verilog RTL Design and Synthesis</summary>
