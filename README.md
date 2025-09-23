@@ -19,3 +19,8 @@ $ make
 $ sudo make install
 
 <img width="777" height="496" alt="Image" src="https://github.com/user-attachments/assets/07c16b28-8c3c-42fd-8915-6742bbfdb04c">
+
+## Iverilog
+```
+$ sudo apt-get install iverilog
+```
