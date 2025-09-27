@@ -190,11 +190,9 @@ The same testbench can be used to verify RTL and Synthesized Netlist.
 
 ## Lab using Yosys and Sky130 PDKs
 
-4photos 
-
-
-
-
+<img width="1048" height="486" alt="Image" src="https://github.com/user-attachments/assets/b6ba5a11-672c-4cfd-b042-83d9cfb11677">
+<img width="1048" height="486" alt="Image" src="https://github.com/user-attachments/assets/9e73d8e7-7a8e-4a81-9edc-91ea75923349">
+<img width="1048" height="486" alt="Image" src="https://github.com/user-attachments/assets/966651d6-59fc-46e7-9d9f-bcd375b07884">
 
 Timing libs, Hierarchical vs Flat Synthesis and Efficient Flop Coding Styles
 
@@ -209,7 +207,7 @@ tt stands for typical in the .lib name \
 025C stands for temperature of 25 C in the .lib name \
 1v80 stands for voltage of 1.8V in the .lib name
 
-photo 
+<img width="1146" height="769" alt="Image" src="https://github.com/user-attachments/assets/d6833e15-8306-4cfc-a2b6-41e3c58f9f58">
 
 -cell defines the beginning of the cell. Other information of cells mentioned are:
 - Leakage power based on the combination of inputs
@@ -225,11 +223,12 @@ photo
 ### Hierarchical Synthesis
 Report after synthesizing multiple_modules.v. As shown below the sub_modules statistics are printed. For example, sub-module1 has 1 AND gate and sub-module2 has 1 OR gate. This is an example of Hierarchical Synthesis.
 
-image
+<img width="1048" height="486" alt="Image" src="https://github.com/user-attachments/assets/390d393a-2f92-4ed4-9c6f-76e6cee05fa1">
 
 Hierarchy is preserved. sub_module1 and sub_module2 are instantiated separately in the synthesized Verilog netlist. Rather than seeing AND or OR gate, we see sub_modules when we run the command 'show' as shown in the screenshot.
 
-image
+<img width="1146" height="769" alt="Image" src="https://github.com/user-attachments/assets/a4efa6b5-41bc-4d08-b2ca-10e65e96f3b6">
+<img width="1141" height="758" alt="Image" src="https://github.com/user-attachments/assets/71ba174f-a14b-4c2c-8732-6aef2e04a2c6">
 
 If we look into the sub_module2 in synthesized netlist 'multiple_modules_hier.v', we see that rather than OR gate, the inputs a & b, pass through the inverter and then NAND gate. It is because in CMOS, stacking PMOS, which happens in 'OR' gate is bad as PMOS has lower mobility and always have to be wider to get some meaningful output. The next step is to check .lib file for the answer.
 
@@ -238,7 +237,11 @@ The design can be flattened by using the command `flatten`.
 
 Screenshot shows the command, synthesized netlist and the logical diagram.
 
-image
+<img width="1005" height="617" alt="Image" src="https://github.com/user-attachments/assets/40a4dc6b-ffa8-4706-a88a-d4c77f19dc66" >
+
+<img width="1146" height="769" alt="Image" src="https://github.com/user-attachments/assets/7ff002c5-63c6-4d49-9279-94a38928c2f7">
+
+<img width="1162" height="192" alt="Image" src="https://github.com/user-attachments/assets/3ff5fc5e-cb69-4888-9399-689bcc8c26f7">
 
 ### Sub-module Level Synthesis
 RTL (Register Transfer Level) designs are often modular, with various functional blocks or sub-modules. Sub-module level synthesis allows each of these sub-modules to be synthesized independently.
@@ -259,7 +262,8 @@ show
 
 The screenshot shows that when sub_module1 is synthesized, only AND gate is generated. 
 
-image
+<img width="849" height="727" alt="Image" src="https://github.com/user-attachments/assets/9a35bb30-2e63-427c-b762-68f681db08aa">
+<img width="849" height="727" alt="Image" src="https://github.com/user-attachments/assets/98c6b887-97b3-45e6-8385-2895bc9524fd">
 
 ## Various Flop Coding Styles and Optimization
 
