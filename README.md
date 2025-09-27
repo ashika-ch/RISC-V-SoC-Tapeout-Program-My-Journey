@@ -8,7 +8,7 @@
 This repository tracks my week-by-week progress in the SoC Tapeout Program, covering everything from RTL design to GDSII.
 
 <details>
-	<summary>Day 0 - Tools Installation </summary>
+	<summary>Week 0 - Tools Installation </summary>
 
 # Week0 - Tools Installation
 
@@ -277,6 +277,522 @@ To initialize flops, we need to `set` and `reset` which can be synchronous or as
 <img width="1550" height="846" alt="Image" src="https://github.com/user-attachments/assets/71765cf3-abbc-4f83-ab0c-39f91f0df5a6">
 
 ![Image](https://github.com/user-attachments/assets/fb39354b-992c-4a05-81f9-15caf0d2531a)
+
+The screenshot below shows DFF with asynchronous reset HDL simulation in Iverilog and  waveform display in GTKwave. Irrespective of the clock and d, as soon as async_reset=1, q=0.
+
+![Image](https://github.com/user-attachments/assets/ae2bcbc9-0b3f-4c80-b001-5240bc0a55a2)
+
+### Synthesizing flops
+The command to synthesize ***DFF with asynchronous reset*** as an example
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog dff_asyncres.v
+synth -top dff_asyncres
+dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+![Image](https://github.com/user-attachments/assets/e8701b87-e90d-47fd-a75d-4a774944d206)
+
+On synthesizing ***DFF with synchronous reset*** we get NOR gate with inverted `d` as shown in the screenshot below. However,on evaluating the boolean expression, we reached the same logic realization. 
+
+![Image](https://github.com/user-attachments/assets/8e635101-9c79-4bfd-bf95-64f1a86e448a)
+
+
+Using the `stat` command, all the cells used for logic synthesis are visible even though it is not evident from the statistics of doing synthesis.
+
+<img width="1144" height="1230" alt="Image" src="https://github.com/user-attachments/assets/71fa1b2e-481f-4262-a7a2-63e1ef4ce2c1">
+
+### Synthesizing mult2 (multiply by 2)
+
+To implement `y[3:0] = 2*a[2:0]`, we append a `1'b0 `to the `a[2:0]` i.e, `y[3:0] = {a[2:0],0}`. This is also equal to left shift the input bits by 1.
+This can be realized by just wiring.
+So we expect no hardware which is also seen in the screenshot below, analysis after synthesis and show. The command 'abc' is not required for mapping when there are no cells.
+
+![Image](https://github.com/user-attachments/assets/62f737a5-d327-459d-bf84-5147415a3861)
+
+### Synthesizing mult9 (multiply by 9 or 8+1)
+
+`y=9*a` can be considered `8*a+1*a`
+To implement `y[5:0] = 9*a[2:0]`, we append `000` to `a[2:0]` and then add `a` i.e, `y[5:0] = {a[2:0],000} + a[2:0]`.
+This can be realized just by wiring.
+So we expect no hardware which is also seen in the screenshot below, analysis after synthesis and show. The command 'abc' is not required for mapping when there are no cells.
+
+![WhatsApp Image 2025-09-27 at 20 38 22_650bcc78](https://github.com/user-attachments/assets/1a0feaa2-d6e9-4d4b-9336-5b67a719625b)
+
+#### Combinational and Sequential Optimizations
+
+## Introduction to Optimizations
+
+### Combinational Logic Optimization
+It means squeezing the logic to get the most optimized design in terms of area and power. the most commonly used techniques are:
+1) Constant propagation using direct optimization
+2) Boolean logic optimization using K-map and Quine McKlusky
+
+An example of constant propagation optimization is highlighted below.
+
+<img width="1235" height="647" alt="Image" src="https://github.com/user-attachments/assets/c84db356-d296-4ced-8553-6d8ce0d455c7">
+
+An example of boolean optimization is highlighted below.
+
+<img width="1237" height="599" alt="Image" src="https://github.com/user-attachments/assets/7a85c3cb-1638-4161-9873-e61306b5bdf8">
+
+### Sequential Logic Optimization
+The technqiues used are:
+1) Basic
+   - Sequential constant propagation
+2) Advanced (not covered as part of lab)
+   - Static optimization
+   - Retiming
+   - Sequential logic cloning (floorplan aware synthesis)
+
+An example of sequential constant propagation is highlighted below of DFF with asynchronous reset where D input is grounded. To note, the same technique cannot be applied to DFF with the asynchronous set because while `Q=1` when `Set=1`, but `Q=0` at `Set=0` at the next CLK pulse. Q is dependent not only on Set but also on the clock edge.
+
+<img width="1258" height="696" alt="Image" src="https://github.com/user-attachments/assets/72ad10d4-b057-456a-863e-55c39bd1c264">
+
+Retiming is a technique to improve the performance of the circuit.
+
+<img width="1199" height="673" alt="Image" src="https://github.com/user-attachments/assets/68b2c1f9-bb34-471a-ac83-787bfdc73f5a">
+
+## Combinational Logic Optimizations
+Commands for optimization
+
+```
+opt_clean -purge
+```
+### Optimization of opt_check.v
+Syntax for opt_check.v
+```
+module opt_check (input a , input b , output y);
+        assign y = a?b:0;
+endmodule
+```
+For opt_check.v the assignment `y = a?b:0` reduces to `y = ab`. The screenshot shown below explains this
+
+<img width="1066" height="608" alt="Image" src="https://github.com/user-attachments/assets/086aaed8-2245-4ee6-9cc4-204b8d964060">
+
+The logic implementation after synthesis for opt_check.v is shown below, showing only AND gate.
+
+![Image](https://github.com/user-attachments/assets/4fe94d63-2bd0-4821-b17a-91c77623ea64)
+
+### Optimization of opt_check2.v
+Syntax for opt_check2.v
+```
+module opt_check2 (input a , input b , output y);
+        assign y = a?1:b;
+endmodule
+```
+For opt_check2.v the assignment `y = a?1:b` reduces to `y = a + b`. 
+
+The logic implementation after synthesis for opt_check2.v is shown below, showing only OR gate.
+
+![Image](https://github.com/user-attachments/assets/dbf9f02e-b613-42b4-b0c7-07c154fbfeb7)
+
+### Optimization of opt_check3.v
+Syntax for opt_check3.v
+```
+module opt_check3 (input a , input b, input c , output y);
+	assign y = a?(c?b:0):0;
+endmodule
+```
+For opt_check.v the assignment `y = a?(c?b:0):0` reduces to `y = abc`. The screenshot shown below explains this.
+
+<img width="1082" height="572" alt="Image" src="https://github.com/user-attachments/assets/fffac397-2045-4cc1-892d-fab71287df52">
+
+The logic implementation after synthesis for opt_check3.v is shown below, showing 3 input AND gate.
+
+![Image](https://github.com/user-attachments/assets/80c50d14-abac-42c2-aafe-61d9b7522ee3)
+
+### Optimization of multiple_module_opt.v
+
+Syntax of multiple_module_opt.v
+```
+module sub_module1(input a , input b , output y);
+ assign y = a & b;
+endmodule
+
+module sub_module2(input a , input b , output y);
+ assign y = a^b;
+endmodule
+
+module multiple_module_opt(input a , input b , input c , input d , output y);
+wire n1,n2,n3;
+
+sub_module1 U1 (.a(a) , .b(1'b1) , .y(n1));
+sub_module2 U2 (.a(n1), .b(1'b0) , .y(n2));
+sub_module2 U3 (.a(b), .b(d) , .y(n3));
+
+assign y = c | (b & n1); 
+endmodule
+```
+The logic implementation after synthesis for multiple_module_opt.v is shown below.
+
+<img width="2159" height="538" alt="Image" src="https://github.com/user-attachments/assets/434b689b-0db2-40aa-a755-2a4db02a4e0a">
+
+## Sequential Logic Optimizations
+
+Both the dff_const1.v and dff_const2 are explained below.
+
+<img width="1701" height="829" alt="Image" src="https://github.com/user-attachments/assets/9de2a578-b6a1-471a-99d2-db22dfcb0143">
+
+### Optimizing dff_const1.v
+
+Syntax for dff_const1.v
+```
+module dff_const1(input clk, input reset, output reg q);
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+		q <= 1'b0;
+	else
+		q <= 1'b1;
+end
+
+endmodule
+```
+For dff_const1.v, `q=0` as long as `reset=1`. However, when `reset=0` `q` doesn't immediately becomes `1` rather at the next rising edge of the `clk` as shown below. ***So the optimization cannot be applied***.
+
+<img width="1995" height="777" alt="Image" src="https://github.com/user-attachments/assets/51d35ab5-10e6-4742-ab9e-27692d927833">
+
+The commands to run the synthesis
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog dff_const1.v
+synth -top dff_const1
+dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+
+The logic implementation after synthesis for dff_const1.v is shown below.
+
+![Image](https://github.com/user-attachments/assets/63627989-6350-4bb7-9f1a-a45b6e83882c)
+
+***complete dff_const2,4,5***
+
+### Optimizing dff_const3.v
+
+Syntax for dff_const3.v
+```
+module dff_const3(input clk, input reset, output reg q);
+reg q1;
+
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+	begin
+		q <= 1'b1;
+		q1 <= 1'b0;
+	end
+	else
+	begin
+		q1 <= 1'b1;
+		q <= q1;
+	end
+end
+
+endmodule
+```
+For dff_const3.v, there are two flops.  `q1=0` as long as `reset=1`. However, when `reset=0` `q1` doesn't immediately becomes `1` rather at the next rising edge of the `clk` with some propagation delay as shown below. `q=1` as long as `reset=1`, acting as `set` rather than `reset`. However, when `reset=0` `q` samples `q1` as `0` as there are some propagation delay for `q1`as shown below. At the next `clk` edge `q` samples `q1` as `1`.
+***So the optimization cannot be applied***.
+
+<img width="1945" height="1137" alt="Image" src="https://github.com/user-attachments/assets/03ebf862-ab50-4595-b239-4a60b8937ac2">
+
+The command to run HDL simulation
+```
+iverilog dff_const3.v tb_dff_const3.v
+./a.out
+gtkwave tb_dff_const3.vcd
+```
+The HDL simulation is shown below.
+
+image 
+
+The commands to run the synthesis
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog dff_const3.v
+synth -top dff_const3
+dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+
+The logic implementation after synthesis for dff_const3.v is shown below.
+
+<img width="2132" height="313" alt="Image" src="https://github.com/user-attachments/assets/adacaeab-038d-4bbb-a03c-de34198882ea">
+
+## Sequential Optimzations for Unused Outputs
+
+### Optimization of Case1: 3-bit Up Counter with q[0] used (counter_opt.v)
+Example of a counter where bits at the position of [2] and [1] are unused.
+
+```
+module counter_opt (input clk , input reset , output q);
+reg [2:0] count;
+assign q = count[0];
+
+always @(posedge clk ,posedge reset)
+begin
+	if(reset)
+		count <= 3'b000;
+	else
+		count <= count + 1;
+end
+
+endmodule
+```
+The screenshot explains the logic of the counter. Only q[0] is used. ***So the optimization can be applied***.
+
+<img width="2400" height="1011" alt="Image" src="https://github.com/user-attachments/assets/98d8fc75-4a15-4204-82c8-c2c0c20c0351">
+
+The commands to run the synthesis
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog counter_opt.v
+synth -top counter_opt
+dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+We see only one flop after the synthesis and also seen in synthesis report after `synth -top counter_opt.v`
+
+![Image](https://github.com/user-attachments/assets/c65fd5da-30c8-4dfd-8333-776c28b3e370)
+
+### Optimization of Case2: 3-bit Up Counter (counter_opt2.v)
+
+Example of a counter where all the bits are used.
+```
+module counter_opt (input clk , input reset , output q);
+reg [2:0] count;
+assign q = (count[2:0] == 3'b100);
+
+always @(posedge clk ,posedge reset)
+begin
+	if(reset)
+		count <= 3'b000;
+	else
+		count <= count + 1;
+end
+
+endmodule
+```
+The commands to run the synthesis
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog counter_opt.v
+synth -top counter_opt
+dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+We see only 3 flops after the synthesis and also seen in synthesis report after `synth -top counter_opt.v`
+
+![Image](https://github.com/user-attachments/assets/03d30dcc-75b1-4e63-805b-052e8f42e4e1)
+
+<img width="3338" height="771" alt="Image" src="https://github.com/user-attachments/assets/58fdb4f1-d2e2-4462-906a-85f538dacad7">
+
+<img width="2334" height="941" alt="Image" src="https://github.com/user-attachments/assets/0621b3b7-ccee-43ac-973b-34b19998c454">
+
+
+## GLS, Synthesis-Simulation Mismatch, and Blocking/Non-blocking Statements
+
+### Why is Gate Level Simulation (GLS) necessary?
+- Verify the correctness of the design after synthesis
+- Ensure the timing of the design is met which is done with delay annotation (timing aware)
+
+<img width="1256" height="626" alt="Image" src="https://github.com/user-attachments/assets/8be1d66f-928a-464c-b94e-8c49f6c3b03d">
+
+### Synthesis Simulation Mismatches
+
+It happens because of the following reasons
+- Missing sensitivity list
+- Blocking vs non-blocking assignments
+- Non-standard verilog coding
+
+#### (1) Missing sensitivity list
+
+As shown in the screenshot below, `always` block is evaluated only when `sel` is changing. So output `y` is not evaluated when `sel` is not changing although `i0` and `i1` are changing. Rather it acts like a latch. The code on the right side represents the correct design coding for `mux`. In this case `always` is evaluated for any signal changes. 
+
+<img width="1263" height="703" alt="Image" src="https://github.com/user-attachments/assets/892e2060-1327-424c-a46e-3a8dc13a0e77">
+
+#### (2) Blocking vs Non-blocking Assignments
+
+ ##### Blocking Statements
+ 
+ - Represented by `=`
+ - Executes the statements in the order it is written inside always block
+ - So the first statement is evaluated before the second statement
+
+##### Non-Blocking Statements
+- Represented by `<=`
+- Executes all the RHS when always block is entered and assigns to LHS
+- Parallel execution
+
+   The left side of the screenshot below gives us the correct execution. While the right side can lead to serious issues as `d` is assigned to `q` directly. ***So choosing non-blocking statements is best practice*** (highlighted in the screenshot below).
+
+<img width="1224" height="683" alt="Image" src="https://github.com/user-attachments/assets/d817db65-6fd8-4ab2-a132-eae91dd4fe18">
+
+##### Blocking Statements Leading to Synthesis Simulation Mismatch
+
+In the code shown below, `y` gets the old `q0` value. This will mimic delay or flop. But when you synthesize, there will be no flop. If the order is changed (right side code), latest value of `q0` is assigned to `y`. 
+
+When synthesized, both will lead to the same circuit. However, simulation will result in different behavior. For the left side of the code, `y` gets the old `q0` value and for the right side of the code, `y` gets the latest `q0` value leading to a synthesis simulation mismatch. 
+
+This issue is resolved by using ***non-blocking statements***.
+
+<img width="1229" height="665" alt="Image" src="https://github.com/user-attachments/assets/10d38869-44f3-4ed2-8e54-85b68bc333c8">
+
+## Labs on GLS and Synthesis-Simulation Mismatch
+
+### Ternary operator MUX (ternary_operator_mux.v)
+
+The Verilog code of ternary_operator_mux.v
+```
+module ternary_operator_mux (input i0 , input i1 , input sel , output y);
+	assign y = sel?i1:i0;
+	endmodule
+```
+The command to run HDL simulation
+```
+iverilog ternary_operator_mux.v tb_ternary_operator_mux.v
+./a.out
+gtkwave tb_ternary_operator_mux.vcd
+```
+HDL Simulation waveform of ternary_operator_mux.v is shown in the screenshot below
+
+<img width="2026" height="868" alt="Image" src="https://github.com/user-attachments/assets/58778046-f7e6-47a8-8baa-c537736d2685">
+
+The commands to run the synthesis for ternary_operator_mux.v
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog ternary_operator_mux.v
+synth -top ternary_operator_mux
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+write_verilog ternary_operator_mux_net.v
+```
+![Image](https://github.com/user-attachments/assets/e22c9cd1-31cd-4d66-b124-80e1f85e0a4e)
+
+The commands to do GLS for ternary_operator_mux.v
+```
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v ternary_operator_mux_net.v tb_ternary_operator_mux.v
+./a.out
+gtkwave tb_ternary_operator_mux.vcd
+```
+The GLS output is shown below.
+
+<img width="1964" height="1049" alt="Image" src="https://github.com/user-attachments/assets/cd517bd4-a377-4692-b75c-c70a18b92493">
+
+### Bad MUX (bad_mux.v)
+
+The `always` block is executed only at `sel` signal. It works like a flop rather than mux.
+The Verilog code of bad_mux.v
+```
+module bad_mux (input i0 , input i1 , input sel , output reg y);
+always @ (sel)
+begin
+	if(sel)
+		y <= i1;
+	else 
+		y <= i0;
+end
+endmodule
+```
+
+The command to run HDL simulation
+```
+iverilog bad_mux.v tb_bad_mux.v
+./a.out
+gtkwave tb_bad_mux.vcd
+```
+HDL Simulation waveform of bad_mux.v is shown in the screenshot below
+
+<img width="1956" height="916" alt="Image" src="https://github.com/user-attachments/assets/89cf3733-7859-4aa2-930d-a0ec0a1618ce">
+
+
+The commands to run the synthesis for bad_mux.v.
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog bad_mux.v
+synth -top bad_mux
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+write_verilog bad_mux_net.v
+```
+
+The synthesis report shows it is still inferring the mux but not the flop.
+
+![Image](https://github.com/user-attachments/assets/f1e410f9-a815-41a7-8ee9-264af860ede3)
+
+The commands to do GLS for bad_mux.v
+```
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v bad_mux_net.v tb_bad_mux.v
+./a.out
+gtkwave tb_bad_mux.vcd
+```
+The GLS output is shown below. This shows correct functionality which is different from HDL simulation, leading to ***synthesis simulation mismatch***.
+
+<img width="1969" height="868" alt="Image" src="https://github.com/user-attachments/assets/9be21c1a-14ae-4f88-a63a-b361fda33181">
+
+## Labs on Synthesis-Simulation Mismatch for Blocking Statements
+
+### Blocking Caveat (blocking_caveat.v)
+
+The logic to simulate is shown below.
+
+<img width="1188" height="691" alt="Image" src="https://github.com/user-attachments/assets/2e1138af-e969-4c63-bbcf-256180b73221">
+
+The Verilog code of blocking_caveat.v
+```
+module blocking_caveat (input a , input b , input  c, output reg d); 
+reg x;
+always @ (*)
+begin
+	d = x & c;
+	x = a | b;
+end
+endmodule
+```
+
+The command to run HDL simulation
+```
+iverilog blocking_caveat.v tb_blocking_caveat.v
+./a.out
+gtkwave tb_blocking_caveat.vcd
+```
+HDL Simulation waveform of blocking_caveat.v is shown in the screenshot below. `d` takes the old value of `x` causing incorrect functionality.
+
+<img width="1952" height="847" alt="Image" src="https://github.com/user-attachments/assets/6fcb984a-999f-4321-8a3e-e98dd4ec3cb1">
+
+The commands to run the synthesis for bad_mux.v.
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog blocking_caveat.v
+synth -top blocking_caveat
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+write_verilog blocking_caveat_net.v
+```
+
+The synthesis report and logic synthesis is shown below.
+
+![Image](https://github.com/user-attachments/assets/6714825e-08c5-4417-a980-ac4df398aa0f)
+
+The commands to do GLS for bad_mux.v
+```
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v blocking_caveat_net.v tb_blocking_caveat.v
+./a.out
+gtkwave tb_blocking_caveat.vcd
+```
+The GLS output is shown below. In this case, `d` takes the current value of `x` causing incorrect functionality.The waveform shows correct functionality which is different from HDL simulation, leading to ***synthesis simulation mismatch***.
+
+<img width="1961" height="925" alt="Image" src="https://github.com/user-attachments/assets/09d33e8d-ac96-4595-9497-2a94c87f47d1">
+
+
+
+
+
 
 
 
