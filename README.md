@@ -800,6 +800,23 @@ The GLS output is shown below. In this case, `d` takes the current value of `x` 
 
 # BabySoC Fundamentals & Functional Modelling 
 
+# Objective :
+To build a solid understanding of SoC fundamentals and practice functional modelling of the BabySoC using simulation tools (Icarus Verilog & GTKWave). 
+
+🔹 Designed a compact open-source SoC (BabySoC) based on the RVMYTH RISC-V core.
+🔹 Integrated a PLL for accurate clock generation & synchronization.
+🔹 Added a 10-bit DAC to enable digital-to-analog conversion.
+🔹 Enabled interfacing with external analog systems (e.g., 📺 televisions, 📱 mobile phones) for audio/video outputs.
+🔹 Implemented using Sky130 technology, providing a documented educational platform for exploring digital–analog interfacing.
+</details>
+
+<details>
+<summary> What is a System-on-Chip (SoC)? </summary>
+
+
+
+
+
 
 
 
