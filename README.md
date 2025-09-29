@@ -793,9 +793,13 @@ The GLS output is shown below. In this case, `d` takes the current value of `x` 
 
 <img width="1961" height="925" alt="Image" src="https://github.com/user-attachments/assets/09d33e8d-ac96-4595-9497-2a94c87f47d1">
 
+</details>
 
 <details>
 	<summary>Week 2 - BabySoC Fundamentals & Functional Modelling  </summary>
+
+# BabySoC Fundamentals & Functional Modelling 
+
 
 
 
