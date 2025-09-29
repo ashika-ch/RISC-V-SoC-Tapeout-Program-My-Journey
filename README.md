@@ -806,8 +806,11 @@ To build a solid understanding of SoC fundamentals and practice functional model
 🔹 Designed a compact open-source SoC (BabySoC) based on the RVMYTH RISC-V core.
 <br>
 🔹 Integrated a PLL for accurate clock generation & synchronization.
+<br>
 🔹 Added a 10-bit DAC to enable digital-to-analog conversion.
+<br>
 🔹 Enabled interfacing with external analog systems (e.g., 📺 televisions, 📱 mobile phones) for audio/video outputs.
+<br>
 🔹 Implemented using Sky130 technology, providing a documented educational platform for exploring digital–analog interfacing.
 
 <details>
@@ -1088,6 +1091,14 @@ NVIDIA Jetson Orin 🤖 → brain of robots, drones & edge AI.
 Hailo-8 / Axera AX630C 👀 → tiny but strong AI vision SoCs for IoT.
 
 Basilisk RISC-V 🧑‍🎓 → open-source SoC for learning & research.
+
+<img width="1280" height="720" alt="Image" src="https://github.com/user-attachments/assets/2ced29d1-381a-4520-bcdf-ba3c52ba3b02">
+
+In summary, **System on a Chip (SoC)** technology allows us to create powerful, efficient, and compact devices by combining multiple components into one chip. This is why our phone, smartwatch, and even some household appliances can do so much in such a small package.
+</details>
+
+
+
 
 
 
