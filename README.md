@@ -990,6 +990,7 @@ Basilisk RISC-V 🧑‍🎓 → open-source SoC for learning & research.
 
 <details>
 <summary> Components of a typical SoC (CPU, memory, peripherals, interconnect) </summary>
+
 	
 **📌 Components of a Typical System-on-Chip (SoC)**
 
