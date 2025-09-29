@@ -1090,10 +1090,227 @@ Networking Support 🌐: Wi-Fi, Bluetooth, 5G/4G modem.
 Sensor Hubs 📱: For accelerometer, gyroscope, ambient sensors.
 
 Embedded Operating System Support: Runs Linux, RTOS, Android, or bare-metal firmware.
+
 <img width="1280" height="720" alt="Image" src="https://github.com/user-attachments/assets/2ced29d1-381a-4520-bcdf-ba3c52ba3b02">
 
 In summary, **System on a Chip (SoC)** technology allows us to create powerful, efficient, and compact devices by combining multiple components into one chip. This is why our phone, smartwatch, and even some household appliances can do so much in such a small package.
 </details>
+
+<details>
+<summary> Types of SoCs 🖥️✨</summary>
+
+ASIC SoC 🎯 – Custom-built for specific apps, ultra-efficient.
+
+MCU SoC ⚡ – CPU + memory + peripherals for embedded/IoT.
+
+DSP SoC 🔊 – Accelerated for signal processing.
+
+Network SoC 🌐 – Handles routers, modems & comms.
+
+Mobile SoC 📱 – All-in-one for smartphones: CPU, GPU, DSP, modem.
+
+FPGA SoC 🔄 – Programmable logic + CPU, flexible prototyping.
+
+Multimedia SoC 🎥 – Powers video/audio processing & displays.
+
+Power Mgmt SoC 🔋 – Battery & voltage control, energy-efficient.
+
+ ### SoC Design Flow
+
+<img width="867" height="1305" alt="image" src="https://github.com/user-attachments/assets/65a3a4a2-7d3f-4ebb-8e25-da65cb4bddff">
+	
+</details>
+
+<details>
+<summary> Introduction to VSDBabySoC </summary>
+
+**VSDBabySoC: Compact Yet Powerful RISC-V SoC 🖥️✨**
+
+The VSDBabySoC is a small but highly capable System-on-Chip (SoC) built on the RISC-V architecture. Its main goal is to simultaneously test three open-source IP cores for the first time while also calibrating its analog components.
+
+**Key components include:**
+
+RVMYTH Microprocessor – Handles the core data processing.
+
+8x Phase-Locked Loop (PLL) – Generates a stable, synchronized clock for smooth operation.
+
+10-bit DAC (Digital-to-Analog Converter) – Converts digital outputs to analog signals for real-world devices.
+
+**1️⃣ Initialization & Clock Generation ⏱️**
+
+When BabySoC receives the initial input signal, the PLL activates, producing a stable and synchronized clock. This ensures that RVMYTH and the DAC work in perfect harmony, avoiding timing mismatches and guaranteeing data integrity across the SoC.
+
+**2️⃣ Data Processing in RVMYTH 💻**
+
+The RVMYTH core is the brain of BabySoC. Its r17 register cycles through values generated during instruction execution. These values are prepared for analog conversion, creating a continuous stream of digital data that the DAC can process seamlessly.
+
+**3️⃣ Analog Signal Generation via DAC 🎶📺**
+
+The DAC receives the digital data from RVMYTH and converts it into analog signals. These outputs, saved in a file called OUT, can drive external devices like TVs, speakers, and mobile phones. This demonstrates how BabySoC bridges digital processing and real-world multimedia outputs, showing its practical applications in consumer electronics.
+
+<img width="2270" height="1260" alt="image" src="https://github.com/user-attachments/assets/ed33055d-058e-4d55-bc83-ece6658d8e49">
+
+## BabySoC Components 🖥️✨
+
+**RVMYTH (RISC-V CPU) 💻**
+
+Acts as the brain of BabySoC.
+
+Based on the open-source RISC-V architecture, making it lightweight, flexible, and customizable.
+
+Handles all processing tasks and communicates with other SoC components.
+
+Perfect for learning, experimenting, and understanding CPU design and instruction flow.
+
+**Phase-Locked Loop (PLL) ⏱️**
+
+Generates a stable, synchronized clock to ensure smooth operation across the SoC.
+
+Aligns BabySoC’s internal clock with a reference frequency, maintaining precise timing for RVMYTH and DAC.
+
+Crucial for timing-critical circuits and widely used in communication and synchronization applications.
+
+**Digital-to-Analog Converter (DAC) 🎶📺**
+
+Converts digital data from RVMYTH into analog signals.
+
+Enables BabySoC to interface with real-world devices like speakers, TVs, or displays.
+
+Demonstrates how digital computation drives multimedia output, bridging the gap between digital processing and analog interaction.
+
+### Phase-Locked Loop (PLL) ⏱️
+
+**1️⃣ Definition**
+
+A Phase-Locked Loop (PLL) is a control system that generates a clock signal synchronized with a reference frequency.
+
+It continuously compares the phase of the output signal with the input reference and adjusts the output to stay in sync.
+
+In simpler words, a PLL locks the clock of a chip to a stable reference, ensuring all components run harmoniously.
+
+**2️⃣ Main Components of a PLL**
+
+Phase Detector (PD) 🔍
+
+Compares the phase of the input reference signal with the PLL’s output.
+
+Produces a signal proportional to the phase difference.
+
+Low-Pass Filter (LPF) 🛡️
+
+Smooths out the output from the phase detector.
+
+Eliminates high-frequency noise and generates a clean control voltage for the VCO.
+
+Voltage-Controlled Oscillator (VCO ⚡)
+
+Generates the output clock signal.
+
+Frequency varies based on the control voltage from the filter to match the reference phase.
+
+Feedback Path 🔄
+
+Feeds the PLL output back to the phase detector.
+
+Ensures continuous phase adjustment until the output is locked to the reference.
+
+**3️⃣ Functionality**
+
+Clock Generation: Produces a stable and precise clock for digital circuits.
+
+Synchronization: Aligns the internal clock of ICs with an external or reference clock.
+
+Frequency Multiplication / Division: Can generate higher or lower frequencies from a reference clock.
+
+Jitter Reduction: Minimizes timing variations in signals for reliable operation.
+
+**4️⃣ Why Can’t Off-Chip Clocks Always Be Used?**
+
+Signal Degradation: Off-chip signals can suffer noise, delay, and attenuation over PCB traces.
+
+Timing Mismatch: External clocks may not match the exact frequency requirements of internal circuits.
+
+Power Consumption: Driving high-speed signals from off-chip sources consumes more power.
+
+Integration Requirement: Modern SoCs require highly stable, on-chip clocks for synchronizing multiple components simultaneously.
+
+<img width="1135" height="671" alt="image" src="https://github.com/user-attachments/assets/82f21a3f-fca2-44d3-8b66-f4cbcd7caea1" />
+
+### Digital-to-Analog Converter (DAC) 🎶📺
+
+**1️⃣ Definition**
+
+A DAC (Digital-to-Analog Converter) is a device that converts digital signals (binary numbers) into continuous analog signals.
+
+It acts as a bridge between the digital world of processors and the analog world of real devices like speakers, displays, and sensors.
+
+In simple terms, a DAC translates 0s and 1s into voltage, current, or sound waves that the real world can interpret.
+
+**2️⃣ Main Components of a DAC**
+
+Digital Input Register 💻
+
+Holds the digital value coming from a processor or microcontroller.
+
+Prepares it for analog conversion.
+
+Reference Voltage Source ⚡
+
+Provides a stable voltage against which the digital input is compared.
+
+Ensures accurate and consistent output levels.
+
+Resistor / Current Ladder Network 🔗
+
+Converts the digital input into proportional current or voltage.
+
+Forms the core of most DAC architectures.
+
+Output Amplifier / Buffer 🛡️
+
+Converts the internal DAC signal into a usable analog output.
+
+Ensures the output can drive external devices without distortion.
+
+**3️⃣ Functionality**
+
+Digital-to-Analog Conversion: Translates discrete digital values into smooth analog signals.
+
+Multimedia Output: Generates audio signals for speakers or video signals for displays.
+
+Control Signals: Sends analog voltages to actuators, motors, or sensors in embedded systems.
+
+Data Interfacing: Connects microcontrollers and processors to real-world analog devices.
+
+**4️⃣ Types of DACs ⚡**
+
+1.Binary-Weighted DAC
+
+Uses resistors weighted by powers of 2.
+
+Simple but sensitive to resistor accuracy.
+
+<img width="600" height="556" alt="image" src="https://github.com/user-attachments/assets/1b60f34e-1a51-4659-ade9-46612f5c038d">
+
+
+2.R-2R Ladder DAC
+
+Uses a ladder of resistors in a repeatable R and 2R pattern.
+
+Popular due to ease of manufacturing and accuracy.
+
+<img width="745" height="452" alt="image" src="https://github.com/user-attachments/assets/34633126-663d-466a-9f16-8df8df8e1c3a">
+
+In VSDBabySoC:
+      - In the VSDBabySoC design, we are utilizing a 10-bit DAC, which means it can take a digital input represented by 10 bits and convert it into an analog output.
+
+---
+
+This document outlines the structure and components of BabySoC, along with a basic understanding of SoCs and their types. By mastering these concepts and understanding how BabySoC operates, one gains a solid foundation in modern embedded systems design and digital-to-analog interfacing.
+
+---
+</details>
+
 
 
 
