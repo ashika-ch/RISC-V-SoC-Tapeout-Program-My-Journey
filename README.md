@@ -882,112 +882,6 @@ Specification → RTL Design → Functional Verification → Synthesis → Place
 
 🧪 Verification & Testing (DFT, BIST, scan).
 
-</details>
-
-<details>
-<summary> Components of a typical SoC (CPU, memory, peripherals, interconnect) </summary>
-	
-**📌 Components of a Typical System-on-Chip (SoC)**
-
-**1️⃣ CPU / Processing Cores**
-
-General Purpose CPU: ARM Cortex, RISC-V, x86 cores 🖥️
-
-GPU (Graphics Processing Unit) 🎮: Parallel processing, graphics rendering, video acceleration.
-
-DSP (Digital Signal Processor) 🎵: Optimized for audio, image, and real-time signal processing.
-
-AI/ML Accelerators 🤖: Neural network processing, edge AI inference engines.
-
-Multiple Cores (Multicore SoC): Improves performance with parallel execution.
-
-**2️⃣ Memory Subsystem**
-
-On-Chip Memory
-
-SRAM (Cache): L1, L2, L3 for fast data access.
-
-ROM: Stores firmware, boot code.
-
-External Memory Controllers
-
-DRAM Controllers: DDR, LPDDR.
-
-Flash Controllers: NAND/NOR for storage.
-
-Functions: Data/instruction storage, buffering, booting, and execution.
-
-**3️⃣ Peripherals (I/O Interfaces)**
-
-Communication Interfaces
-
-Low-Speed: UART, I²C, SPI.
-
-High-Speed: USB, PCIe, Ethernet, SATA.
-
-Multimedia Interfaces
-
-Display controller, HDMI, MIPI DSI.
-
-Camera interface (CSI).
-
-Audio codecs.
-
-Timers & Counters ⏱️
-
-GPIO (General-Purpose Input/Output) 🔌
-
-Security Modules 🔐
-
-Cryptographic accelerators.
-
-Secure boot, trusted execution.
-
-**4️⃣ Interconnect (On-Chip Communication)**
-
-Bus-based Fabrics: AMBA (AXI, AHB, APB).
-
-Crossbar Switches: Parallel high-speed data paths.
-
-Network-on-Chip (NoC): Scalable packet-switched fabric for large SoCs.
-
-Role: Ensures efficient CPU–Memory–Peripheral communication.
-
-**5️⃣ Analog & Mixed-Signal Blocks**
-
-PLL (Phase-Locked Loop) ⏱️: Clock generation, synchronization.
-
-ADC (Analog-to-Digital Converter) 🎛️: Sensor inputs (temperature, motion, etc.).
-
-DAC (Digital-to-Analog Converter) 🔊: Audio, video signal output.
-
-PHY Interfaces: For USB, PCIe, Ethernet.
-
-**6️⃣ Power Management**
-
-Power Management Unit (PMU) 🔋: Controls power domains.
-
-Voltage Regulators & DC-DC Converters: Supply stable voltage.
-
-Dynamic Voltage & Frequency Scaling (DVFS) ⚡: Balances performance vs. power.
-
-Clock Gating & Power Gating: Reduce leakage and dynamic power.
-
-Battery Management Circuits (in mobile SoCs).
-
-**7️⃣ Other Special Features**
-
-Security Enhancements: Hardware root of trust, encryption modules, secure enclaves.
-
-Debug & Test Features 🛠️: JTAG, DFT, BIST (Built-In Self-Test), scan chains.
-
-Networking Support 🌐: Wi-Fi, Bluetooth, 5G/4G modem.
-
-Sensor Hubs 📱: For accelerometer, gyroscope, ambient sensors.
-
-Embedded Operating System Support: Runs Linux, RTOS, Android, or bare-metal firmware.
-</details>
-
 ### Why SoCs Are Awesome
 
 **1️⃣ Compact Integration**
@@ -1092,6 +986,110 @@ Hailo-8 / Axera AX630C 👀 → tiny but strong AI vision SoCs for IoT.
 
 Basilisk RISC-V 🧑‍🎓 → open-source SoC for learning & research.
 
+</details>
+
+<details>
+<summary> Components of a typical SoC (CPU, memory, peripherals, interconnect) </summary>
+	
+**📌 Components of a Typical System-on-Chip (SoC)**
+
+**1️⃣ CPU / Processing Cores**
+
+General Purpose CPU: ARM Cortex, RISC-V, x86 cores 🖥️
+
+GPU (Graphics Processing Unit) 🎮: Parallel processing, graphics rendering, video acceleration.
+
+DSP (Digital Signal Processor) 🎵: Optimized for audio, image, and real-time signal processing.
+
+AI/ML Accelerators 🤖: Neural network processing, edge AI inference engines.
+
+Multiple Cores (Multicore SoC): Improves performance with parallel execution.
+
+**2️⃣ Memory Subsystem**
+
+On-Chip Memory
+
+SRAM (Cache): L1, L2, L3 for fast data access.
+
+ROM: Stores firmware, boot code.
+
+External Memory Controllers
+
+DRAM Controllers: DDR, LPDDR.
+
+Flash Controllers: NAND/NOR for storage.
+
+Functions: Data/instruction storage, buffering, booting, and execution.
+
+**3️⃣ Peripherals (I/O Interfaces)**
+
+Communication Interfaces
+
+Low-Speed: UART, I²C, SPI.
+
+High-Speed: USB, PCIe, Ethernet, SATA.
+
+Multimedia Interfaces
+
+Display controller, HDMI, MIPI DSI.
+
+Camera interface (CSI).
+
+Audio codecs.
+
+Timers & Counters ⏱️
+
+GPIO (General-Purpose Input/Output) 🔌
+
+Security Modules 🔐
+
+Cryptographic accelerators.
+
+Secure boot, trusted execution.
+
+**4️⃣ Interconnect (On-Chip Communication)**
+
+Bus-based Fabrics: AMBA (AXI, AHB, APB).
+
+Crossbar Switches: Parallel high-speed data paths.
+
+Network-on-Chip (NoC): Scalable packet-switched fabric for large SoCs.
+
+Role: Ensures efficient CPU–Memory–Peripheral communication.
+
+**5️⃣ Analog & Mixed-Signal Blocks**
+
+PLL (Phase-Locked Loop) ⏱️: Clock generation, synchronization.
+
+ADC (Analog-to-Digital Converter) 🎛️: Sensor inputs (temperature, motion, etc.).
+
+DAC (Digital-to-Analog Converter) 🔊: Audio, video signal output.
+
+PHY Interfaces: For USB, PCIe, Ethernet.
+
+**6️⃣ Power Management**
+
+Power Management Unit (PMU) 🔋: Controls power domains.
+
+Voltage Regulators & DC-DC Converters: Supply stable voltage.
+
+Dynamic Voltage & Frequency Scaling (DVFS) ⚡: Balances performance vs. power.
+
+Clock Gating & Power Gating: Reduce leakage and dynamic power.
+
+Battery Management Circuits (in mobile SoCs).
+
+**7️⃣ Other Special Features**
+
+Security Enhancements: Hardware root of trust, encryption modules, secure enclaves.
+
+Debug & Test Features 🛠️: JTAG, DFT, BIST (Built-In Self-Test), scan chains.
+
+Networking Support 🌐: Wi-Fi, Bluetooth, 5G/4G modem.
+
+Sensor Hubs 📱: For accelerometer, gyroscope, ambient sensors.
+
+Embedded Operating System Support: Runs Linux, RTOS, Android, or bare-metal firmware.
 <img width="1280" height="720" alt="Image" src="https://github.com/user-attachments/assets/2ced29d1-381a-4520-bcdf-ba3c52ba3b02">
 
 In summary, **System on a Chip (SoC)** technology allows us to create powerful, efficient, and compact devices by combining multiple components into one chip. This is why our phone, smartwatch, and even some household appliances can do so much in such a small package.
