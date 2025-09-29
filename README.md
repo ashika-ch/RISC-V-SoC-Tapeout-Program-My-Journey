@@ -796,6 +796,7 @@ The GLS output is shown below. In this case, `d` takes the current value of `x` 
 </details>
 
 <details>
+	
 	<summary>Week 2 - BabySoC Fundamentals & Functional Modelling  </summary>
 
 # BabySoC Fundamentals & Functional Modelling 
@@ -814,6 +815,7 @@ To build a solid understanding of SoC fundamentals and practice functional model
 🔹 Implemented using Sky130 technology, providing a documented educational platform for exploring digital–analog interfacing.
 
 <details>
+	
 <summary> What is a System-on-Chip (SoC)? </summary>
 
 **📌 System-on-Chip (SoC) – Key Points**
@@ -989,6 +991,7 @@ Basilisk RISC-V 🧑‍🎓 → open-source SoC for learning & research.
 </details>
 
 <details>
+	
 <summary> Components of a typical SoC (CPU, memory, peripherals, interconnect) </summary>
 
 	
@@ -1123,6 +1126,7 @@ Power Mgmt SoC 🔋 – Battery & voltage control, energy-efficient.
 </details>
 
 <details>
+	
 <summary> Introduction to VSDBabySoC </summary>
 
 **VSDBabySoC: Compact Yet Powerful RISC-V SoC 🖥️✨**
