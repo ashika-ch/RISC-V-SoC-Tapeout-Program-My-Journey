@@ -914,7 +914,7 @@ Flash Controllers: NAND/NOR for storage.
 
 Functions: Data/instruction storage, buffering, booting, and execution.
 
-# 3️⃣ Peripherals (I/O Interfaces)
+**3️⃣ Peripherals (I/O Interfaces)**
 
 Communication Interfaces
 
@@ -940,7 +940,7 @@ Cryptographic accelerators.
 
 Secure boot, trusted execution.
 
-# 4️⃣ Interconnect (On-Chip Communication)
+**4️⃣ Interconnect (On-Chip Communication)**
 
 Bus-based Fabrics: AMBA (AXI, AHB, APB).
 
@@ -950,7 +950,7 @@ Network-on-Chip (NoC): Scalable packet-switched fabric for large SoCs.
 
 Role: Ensures efficient CPU–Memory–Peripheral communication.
 
-# 5️⃣ Analog & Mixed-Signal Blocks
+**5️⃣ Analog & Mixed-Signal Blocks**
 
 PLL (Phase-Locked Loop) ⏱️: Clock generation, synchronization.
 
@@ -960,7 +960,7 @@ DAC (Digital-to-Analog Converter) 🔊: Audio, video signal output.
 
 PHY Interfaces: For USB, PCIe, Ethernet.
 
-# 6️⃣ Power Management
+**6️⃣ Power Management**
 
 Power Management Unit (PMU) 🔋: Controls power domains.
 
@@ -972,7 +972,7 @@ Clock Gating & Power Gating: Reduce leakage and dynamic power.
 
 Battery Management Circuits (in mobile SoCs).
 
-# 7️⃣ Other Special Features
+**7️⃣ Other Special Features**
 
 Security Enhancements: Hardware root of trust, encryption modules, secure enclaves.
 
@@ -987,37 +987,37 @@ Embedded Operating System Support: Runs Linux, RTOS, Android, or bare-metal firm
 
 ### Why SoCs Are Awesome
 
-# 1️⃣ Compact Integration
+**1️⃣ Compact Integration**
 
 CPU + Memory + Peripherals + Analog + Power circuits → all in one chip.
 
 📏 Reduces board space → smaller devices (smartphones, IoT, wearables).
 
-# 2️⃣ High Performance
+**2️⃣ High Performance**
 
 ⚡ On-chip communication (fast interconnect/NoC) → lower latency vs. multi-chip systems.
 
 🚀 Parallel processing with CPU + GPU + DSP + AI accelerators.
 
-# 3️⃣ Low Power Consumption
+**3️⃣ Low Power Consumption**
 
 🔋 Optimized for mobile/embedded use with DVFS, power gating, clock gating.
 
 ✅ Longer battery life for handheld devices.
 
-# 4️⃣ Cost-Effective
+**4️⃣ Cost-Effective**
 
 💰 Fewer external components = reduced manufacturing cost.
 
 🏭 Easy mass production = economies of scale.
 
-# 5️⃣ Reliability
+**5️⃣ Reliability**
 
 🔗 Fewer off-chip connections → lower failure rate.
 
 🛡️ On-chip security modules → hardware-level protection.
 
-# 6️⃣ Versatility
+**6️⃣ Versatility**
 
 📱 Consumer Electronics: smartphones, tablets, smart TVs.
 
@@ -1027,7 +1027,7 @@ CPU + Memory + Peripherals + Analog + Power circuits → all in one chip.
 
 🤖 AI/IoT: edge devices, wearables, robotics.
 
-# 7️⃣ Scalability & Future-Readiness
+**7️⃣ Scalability & Future-Readiness**
 
 🧩 Supports custom accelerators (AI, ML, vision).
 
@@ -1037,13 +1037,13 @@ CPU + Memory + Peripherals + Analog + Power circuits → all in one chip.
 
 ### Where You’ll Find SoCs
 
-# 📱 In Your Pocket
+**📱 In Your Pocket**
 
 Smartphones, tablets, wearables → SoCs like Snapdragon, Apple A/M series, Exynos.
 
 They manage calls, photos, gaming, AI assistants — all from one chip!
 
-# 🚗 On the Road
+**🚗 On the Road**
 
 Cars run on SoCs for ADAS, infotainment, EV battery control.
 
@@ -1051,29 +1051,44 @@ Examples: NVIDIA DRIVE, Qualcomm Auto SoCs, Tesla FSD.
 
 Your car is basically a computer-on-wheels 🛞.
 
-# 🏠 Inside Your Home
+**🏠 Inside Your Home**
 
 Smart TVs, Alexa, Google Home, smart bulbs & locks.
 
 SoCs like MediaTek, ESP32, ARM Cortex-M quietly keep your home smart & connected.
 
-# 🌐 Across Networks
+**🌐 Across Networks**
 
 Wi-Fi routers, 5G/4G modems, even satellites.
 
 Broadcom, Qualcomm X-series, Space-grade SoCs ensure you stay connected → from your room to outer space 🚀.
 
-# 🏥 In Healthcare
+**🏥 In Healthcare**
 
 Portable monitors, smart bands, glucose trackers.
 
 SoCs give doctors real-time data and patients life-saving insights.
 
-# 🤖 In the Future (Already Here!)
+**🤖 In the Future (Already Here!)**
 
 AI edge devices, robots, drones → powered by NVIDIA Jetson, Google Coral, NPUs.
 
 They enable vision, intelligence, and autonomy.
+
+### Some Popular SoCs You Might Know
+
+Snapdragon X2 Elite ⚡ → 3 nm powerhouse for laptops & PCs.
+
+Snapdragon 8 Elite Gen-5 📱 → flagship mobile chip with AI boost.
+
+MediaTek Dimensity 9400 📸 → camera + AI beast for smartphones.
+
+NVIDIA Jetson Orin 🤖 → brain of robots, drones & edge AI.
+
+Hailo-8 / Axera AX630C 👀 → tiny but strong AI vision SoCs for IoT.
+
+Basilisk RISC-V 🧑‍🎓 → open-source SoC for learning & research.
+
 
 
 
