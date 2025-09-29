@@ -808,9 +808,7 @@ To build a solid understanding of SoC fundamentals and practice functional model
 🔹 Added a 10-bit DAC to enable digital-to-analog conversion.
 🔹 Enabled interfacing with external analog systems (e.g., 📺 televisions, 📱 mobile phones) for audio/video outputs.
 🔹 Implemented using Sky130 technology, providing a documented educational platform for exploring digital–analog interfacing.
-</details>
 
-<details>
 <summary> What is a System-on-Chip (SoC)? </summary>
 
 
