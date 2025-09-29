@@ -804,6 +804,7 @@ The GLS output is shown below. In this case, `d` takes the current value of `x` 
 To build a solid understanding of SoC fundamentals and practice functional modelling of the BabySoC using simulation tools (Icarus Verilog & GTKWave). 
 
 🔹 Designed a compact open-source SoC (BabySoC) based on the RVMYTH RISC-V core.
+<br>
 🔹 Integrated a PLL for accurate clock generation & synchronization.
 🔹 Added a 10-bit DAC to enable digital-to-analog conversion.
 🔹 Enabled interfacing with external analog systems (e.g., 📺 televisions, 📱 mobile phones) for audio/video outputs.
@@ -812,13 +813,13 @@ To build a solid understanding of SoC fundamentals and practice functional model
 <details>
 <summary> What is a System-on-Chip (SoC)? </summary>
 
-# 📌 System-on-Chip (SoC) – Key Points
+**📌 System-on-Chip (SoC) – Key Points**
 
-# Definition
+ **Definition**
 
 A System-on-Chip (SoC) is an integrated circuit (IC) that combines multiple components of a complete electronic system into a single chip.
 
-# Core Components
+**Core Components**
 
 Processor/Core 🖥️ → CPU, GPU, DSP, or RISC-V/ARM cores for computation.
 
@@ -830,11 +831,11 @@ Analog Blocks 🎛️ → ADC, DAC, PLL, power management.
 
 Interconnect 🔗 → High-speed buses (AMBA, AXI, Wishbone) for communication between blocks.
 
-# Integration
+**Integration**
 
 Everything is fabricated on one silicon die → reduces cost, area, and power.
 
-# Advantages
+**Advantages**
 
 🚀 High Performance → Fast data transfer (on-chip communication).
 
@@ -846,7 +847,7 @@ Everything is fabricated on one silicon die → reduces cost, area, and power.
 
 ⚡ Reliability → Fewer interconnections → lower failure rates.
 
-# Applications
+**Applications**
 
 📱 Mobile Phones (Qualcomm Snapdragon, Apple A-series).
 
@@ -858,17 +859,17 @@ Everything is fabricated on one silicon die → reduces cost, area, and power.
 
 💻 Embedded Systems & Edge AI devices.
 
-# Technology Nodes
+**Technology Nodes**
 
 Fabricated in nm technologies → 180nm, 65nm, 28nm, 7nm, down to 3nm.
 
 Smaller node = more transistors = faster + power-efficient.
 
-# Design Flow
+**Design Flow**
 
 Specification → RTL Design → Functional Verification → Synthesis → Place & Route → Fabrication → Testing (DFT, Scan Chains).
 
-# Challenges
+**Challenges**
 
 🔧 Power Management (low power design techniques).
 
@@ -883,9 +884,9 @@ Specification → RTL Design → Functional Verification → Synthesis → Place
 <details>
 <summary> Components of a typical SoC (CPU, memory, peripherals, interconnect) </summary>
 	
-# 📌 Components of a Typical System-on-Chip (SoC)
+**📌 Components of a Typical System-on-Chip (SoC)**
 
-# 1️⃣ CPU / Processing Cores
+**1️⃣ CPU / Processing Cores**
 
 General Purpose CPU: ARM Cortex, RISC-V, x86 cores 🖥️
 
@@ -897,7 +898,7 @@ AI/ML Accelerators 🤖: Neural network processing, edge AI inference engines.
 
 Multiple Cores (Multicore SoC): Improves performance with parallel execution.
 
-# 2️⃣ Memory Subsystem
+**2️⃣ Memory Subsystem**
 
 On-Chip Memory
 
