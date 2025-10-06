@@ -1604,26 +1604,29 @@ This week, I successfully:
 
 # Week3 - Post-Synthesis GLS & STA Fundamentals 
 
-# ⚙️ Gate-Level Simulation (GLS) of BabySoC
-# 🧩 Post-Synthesis Verification Phase
-# 🎯 Purpose of GLS
+<details>
+<summary> ⚙️ Gate-Level Simulation (GLS) of BabySoC </summary>
+	
+**🧩 Post-Synthesis Verification Phase**
+**🎯 Purpose of GLS**
 
 Gate-Level Simulation (GLS) is the reality check for our BabySoC design 💡.
 After synthesis converts the RTL description into a gate-level netlist, GLS ensures that the design still behaves exactly as intended — but now with real hardware timing taken into account. Unlike RTL simulations that work on abstract behavioral models, GLS dives deep into the actual logic gates and interconnections that form the silicon foundation of the SoC 🧠⚡.
 
-* 🔍 Why GLS Matters for BabySoC *
-⏱️ Timing-Aware Verification:
+**🔍 Why GLS Matters for BabySoC**
+
+**⏱️ Timing-Aware Verification:**
 GLS is performed using Standard Delay Format (SDF) files that include the post-synthesis delays.
 It helps verify that the design meets real-world timing constraints — checking if the SoC runs smoothly without timing violations or setup/hold issues ⏳✅.
 
-🧠 Functional Validation after Synthesis:
+**🧠 Functional Validation after Synthesis:**
 Even after synthesis transforms RTL into gates, the logic must remain intact. GLS ensures that no logical discrepancies or unwanted glitches have crept in during synthesis. It confirms the trust between what was written and what will be fabricated.
 
-🔧 Simulation Tools in Action:
+**🔧 Simulation Tools in Action:**
 Simulation is carried out using tools like Icarus Verilog (iverilog) or similar Verilog simulators 🧮.
 Post-simulation, GTKWave is used to visualize and analyze the waveforms — letting us watch signal transitions, debug timing behavior, and confirm correctness visually 📊👀.
 
-🧠 Importance for BabySoC Architecture:
+**🧠 Importance for BabySoC Architecture:**
 BabySoC integrates multiple modules — RISC-V Processor (RVMYTH), PLL, and DAC — all working hand-in-hand 🤝.
 GLS ensures that these modules communicate seamlessly and meet timing requirements, validating that the SoC design is synthesis-accurate, timing-correct, and silicon-ready 🚀.
 
@@ -1631,10 +1634,147 @@ GLS ensures that these modules communicate seamlessly and meet timing requiremen
 Step 1: Launch Yosys and Load Design
 yosys
 
+<img width="1213" height="672" alt="image" src="https://github.com/user-attachments/assets/5b878f4e-0fee-4f3a-908b-26313be4bdbc" />
 
 Start by opening Yosys, the synthesis tool.
 Load your top-level BabySoC design along with all its supporting RTL modules.
 This prepares the environment for generating the gate-level netlist and proceeding with the simulation 🧱➡️⚙️.
+
+Inside the Yosys shell, run:
+```yosys
+read_verilog src/module/vsdbabysoc.v
+read_verilog -I src/include src/module/rvmyth.v
+read_verilog -I src/include src/module/clk_gate.v
+
+```
+<img width="1215" height="770" alt="vsdbaby" src="https://github.com/user-attachments/assets/307647c6-52d1-423b-abcd-1fc3577f2066" />
+<img width="1072" height="213" alt="rvmyth" src="https://github.com/user-attachments/assets/44d099a9-2729-4073-b5e5-b81dc1179b2b" />
+<img width="1069" height="204" alt="clk_gate" src="https://github.com/user-attachments/assets/ade3a799-a6cf-467e-b80d-192954ac48a7" />
+
+---
+
+### **Step 2: Load the Liberty Files for Synthesis**
+Inside the same Yosys shell, run:
+```yosys
+read_liberty -lib src/lib/avsdpll.lib
+read_liberty -lib src/lib/avsddac.lib
+read_liberty -lib src/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+<img width="1176" height="415" alt="lib" src="https://github.com/user-attachments/assets/357bd655-ba95-4438-8243-b684ec4269af" />
+
+---
+
+### **Step 3: Run Synthesis Targeting `vsdbabysoc`**
+```yosys
+synth -top vsdbabysoc
+```
+<img width="1199" height="712" alt="Image" src="https://github.com/user-attachments/assets/8e8be4eb-c3a2-41c5-90af-36d9562dc15a" />
+<img width="1194" height="664" alt="Image" src="https://github.com/user-attachments/assets/a6d947ad-c949-48e3-93f0-60f105ca7302" />
+<img width="1210" height="727" alt="Image" src="https://github.com/user-attachments/assets/6ebd2360-45cc-4711-9dba-38d3b39fbecc" />
+<img width="1210" height="727" alt="Image" src="https://github.com/user-attachments/assets/05039c6c-c25b-4554-841b-20f5f571e38e" />
+<img width="1199" height="712" alt="Image" src="https://github.com/user-attachments/assets/8f0d4516-cba1-4a5b-955f-37c7fa1d2531" />
+<img width="1210" height="727" alt="Image" src="https://github.com/user-attachments/assets/9c8a1ef2-83d8-4680-ac8a-5b86c1594bcd" />
+
+---
+
+### **Step 4: Map D Flip-Flops to Standard Cells**
+```yosys
+dfflibmap -liberty src/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+<img width="1219" height="774" alt="dff" src="https://github.com/user-attachments/assets/7d8ed1bf-f110-44f4-9aad-9fd24b457255" />
+
+---
+
+### **Step 5: Perform Optimization and Technology Mapping**
+```yosys
+opt
+abc -liberty src/lib/sky130_fd_sc_hd__tt_025C_1v80.lib -script +strash;scorr;ifraig;retime;{D};strash;dch,-f;map,-M,1,{D}
+```
+<img width="1219" height="774" alt="Image" src="https://github.com/user-attachments/assets/3c9e4971-5fbd-47be-9d97-2113cbe68e0d" />
+<img width="1219" height="774" alt="Image" src="https://github.com/user-attachments/assets/ffc238b9-9167-4e9f-8679-6f2150d8bc3f" />
+<img width="1219" height="774" alt="Image" src="https://github.com/user-attachments/assets/2857cbe3-b680-445b-852b-67622adbc4d4" />
+<img width="1219" height="777" alt="Image" src="https://github.com/user-attachments/assets/2fa8c51f-8bc8-474a-8c6d-eacf5e1e50f5" />
+<img width="1219" height="777" alt="Image" src="https://github.com/user-attachments/assets/48ca6638-51b4-48d3-b5da-f82ae6f30cef" />
+
+---
+
+### **Step 6: Perform Final Clean-Up and Renaming**
+```yosys
+flatten
+setundef -zero
+clean -purge
+rename -enumerate
+```
+<img width="1179" height="375" alt="flat" src="https://github.com/user-attachments/assets/9c9190ef-feaf-4f1d-9469-4024b43b11ef" />
+
+---
+
+### **Step 7: Check Statistics**
+```yosys
+stat
+```
+<img width="1155" height="659" alt="image" src="https://github.com/user-attachments/assets/4545dcf8-cf7d-4312-a397-01f30a565d13" />
+<img width="1155" height="659" alt="image" src="https://github.com/user-attachments/assets/c07ffd6c-e55d-4308-a64b-05a591cc479b" />
+<img width="1155" height="659" alt="image" src="https://github.com/user-attachments/assets/dd30d12c-8106-484f-9c82-dbf85e2a9d5a" />
+<img width="1224" height="420" alt="image" src="https://github.com/user-attachments/assets/2878f87d-33fd-4294-b370-882887318dd0" />
+
+---
+
+### **Step 8: Write the Synthesized Netlist**
+```yosys
+write_verilog -noattr output/post_synth_sim/vsdbabysoc.synth.v
+```
+<img width="1166" height="117" alt="write" src="https://github.com/user-attachments/assets/61979497-5f89-4989-b0fa-6cc04c361602" />
+
+---
+
+## POST_SYNTHESIS SIMULATION AND WAVEFORMS
+---
+
+### **Step 1: Compile the Testbench**
+Run the following `iverilog` command to compile the testbench:
+```bash
+iverilog -o output/post_synth_sim/post_synth_sim.out -DPOST_SYNTH_SIM -DFUNCTIONAL -DUNIT_DELAY=#1 -I src/include -I src/module src/module/testbench.v output/synth/vsdbabysoc.synth.v
+```
+---
+### **Step 2: Navigate to the Post-Synthesis Simulation Output Directory**
+```bash
+cd output/post_synth_sim/
+```
+---
+### **Step 3: Run the Simulation**
+
+```bash
+./post_synth_sim.out
+```
+---
+### **Step 4: View the Waveforms in GTKWave**
+
+```bash
+gtkwave post_synth_sim.vcd
+```
+---
+<img width="1214" height="770" alt="1" src="https://github.com/user-attachments/assets/016eefe2-d5a4-4e1f-b9e5-e8ed6527de75" />
+<img width="1214" height="717" alt="2" src="https://github.com/user-attachments/assets/d4de60cc-30d4-436a-8cc4-a576622b97ce" />
+<img width="1219" height="657" alt="3" src="https://github.com/user-attachments/assets/3e48a500-c1eb-4520-a2ca-a550b001af3b" />
+![WhatsApp Image 2025-10-06 at 13 43 03_d43e4d35](https://github.com/user-attachments/assets/5ad9bcca-2469-4d6c-9ffd-db01b1b41857)
+
+✨ In short, GLS acts as the final checkpoint between design and hardware — ensuring that our BabySoC beats to the right clock, with real-world timing accuracy and functional integrity ❤️🔐.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
