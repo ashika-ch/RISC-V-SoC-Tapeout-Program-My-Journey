@@ -1757,7 +1757,7 @@ gtkwave post_synth_sim.vcd
 <img width="1214" height="770" alt="1" src="https://github.com/user-attachments/assets/016eefe2-d5a4-4e1f-b9e5-e8ed6527de75" />
 <img width="1214" height="717" alt="2" src="https://github.com/user-attachments/assets/d4de60cc-30d4-436a-8cc4-a576622b97ce" />
 <img width="1219" height="657" alt="3" src="https://github.com/user-attachments/assets/3e48a500-c1eb-4520-a2ca-a550b001af3b" />
-![WhatsApp Image 2025-10-06 at 13 43 03_d43e4d35](https://github.com/user-attachments/assets/5ad9bcca-2469-4d6c-9ffd-db01b1b41857)
+<img width="1042" height="669" alt="last" src="https://github.com/user-attachments/assets/efb23aea-ae9b-44b6-b64e-d61e5d64313e" />
 
 ✨ In short, GLS acts as the final checkpoint between design and hardware — ensuring that our BabySoC beats to the right clock, with real-world timing accuracy and functional integrity ❤️🔐.
 
