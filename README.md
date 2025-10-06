@@ -1597,7 +1597,7 @@ This week, I successfully:
 5️⃣ Captured simulation logs & screenshots to document reset behavior, clock synchronization, and dataflow between modules 📝
 
 ✨Week 2 provided hands-on experience in functional simulation of BabySoC, strengthening my understanding of SoC signal interactions and waveform analysis 🚀🔧
-
+</details>
 
 <details>
 	<summary>Week 3 - Post-Synthesis GLS & STA Fundamentals </summary>
