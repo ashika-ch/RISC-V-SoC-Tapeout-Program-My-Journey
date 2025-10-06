@@ -1599,6 +1599,44 @@ This week, I successfully:
 ✨Week 2 provided hands-on experience in functional simulation of BabySoC, strengthening my understanding of SoC signal interactions and waveform analysis 🚀🔧
 
 
+<details>
+	<summary>Week 3 - Post-Synthesis GLS & STA Fundamentals </summary>
+
+# Week3 - Post-Synthesis GLS & STA Fundamentals 
+
+# ⚙️ Gate-Level Simulation (GLS) of BabySoC
+# 🧩 Post-Synthesis Verification Phase
+# 🎯 Purpose of GLS
+
+Gate-Level Simulation (GLS) is the reality check for our BabySoC design 💡.
+After synthesis converts the RTL description into a gate-level netlist, GLS ensures that the design still behaves exactly as intended — but now with real hardware timing taken into account. Unlike RTL simulations that work on abstract behavioral models, GLS dives deep into the actual logic gates and interconnections that form the silicon foundation of the SoC 🧠⚡.
+
+* 🔍 Why GLS Matters for BabySoC *
+⏱️ Timing-Aware Verification:
+GLS is performed using Standard Delay Format (SDF) files that include the post-synthesis delays.
+It helps verify that the design meets real-world timing constraints — checking if the SoC runs smoothly without timing violations or setup/hold issues ⏳✅.
+
+🧠 Functional Validation after Synthesis:
+Even after synthesis transforms RTL into gates, the logic must remain intact. GLS ensures that no logical discrepancies or unwanted glitches have crept in during synthesis. It confirms the trust between what was written and what will be fabricated.
+
+🔧 Simulation Tools in Action:
+Simulation is carried out using tools like Icarus Verilog (iverilog) or similar Verilog simulators 🧮.
+Post-simulation, GTKWave is used to visualize and analyze the waveforms — letting us watch signal transitions, debug timing behavior, and confirm correctness visually 📊👀.
+
+🧠 Importance for BabySoC Architecture:
+BabySoC integrates multiple modules — RISC-V Processor (RVMYTH), PLL, and DAC — all working hand-in-hand 🤝.
+GLS ensures that these modules communicate seamlessly and meet timing requirements, validating that the SoC design is synthesis-accurate, timing-correct, and silicon-ready 🚀.
+
+🧭 Step-by-Step Manual Execution Plan
+Step 1: Launch Yosys and Load Design
+yosys
+
+
+Start by opening Yosys, the synthesis tool.
+Load your top-level BabySoC design along with all its supporting RTL modules.
+This prepares the environment for generating the gate-level netlist and proceeding with the simulation 🧱➡️⚙️.
+
+
 
 
 
