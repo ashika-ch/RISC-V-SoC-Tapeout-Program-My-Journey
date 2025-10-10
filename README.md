@@ -1602,8 +1602,6 @@ This week, I successfully:
 <details>
 	<summary>Week 3 - Post-Synthesis GLS & STA Fundamentals </summary>
 
-# Week3 - Post-Synthesis GLS & STA Fundamentals 
-
 <details>
 <summary> ⚙️ Gate-Level Simulation (GLS) of BabySoC </summary>
 	
