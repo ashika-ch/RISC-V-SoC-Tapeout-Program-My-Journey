@@ -1760,6 +1760,7 @@ gtkwave post_synth_sim.vcd
 <img width="1042" height="669" alt="last" src="https://github.com/user-attachments/assets/efb23aea-ae9b-44b6-b64e-d61e5d64313e" />
 
 ✨ In short, GLS acts as the final checkpoint between design and hardware — ensuring that our BabySoC beats to the right clock, with real-world timing accuracy and functional integrity ❤️🔐.
+</details>
 
 <details>
 <summary> Fundamentals of STA </summary>
@@ -1851,44 +1852,12 @@ This makes timing analysis fine-grained, because delay depends on pin-to-pin pat
 Compute Actual Arrival Time (AAT)
 
 AAT (Blue A) = the earliest time a signal arrives at a node.
-
+```
 Formula:
 
-𝐴
-𝐴
-𝑇
-=
-max
-⁡
-(
-𝐴
-𝐴
-𝑇
-𝑖
-𝑛
-𝑝
-𝑢
-𝑡
-𝑠
-+
-𝑑
-𝑒
-𝑙
-𝑎
-𝑦
-𝑎
-𝑟
-𝑐
-)
-AAT=max(AAT
-inputs
-	​
+𝐴𝐴𝑇=max(𝐴𝐴𝑇𝑖𝑛𝑝𝑢𝑡𝑠+𝑑𝑒𝑙𝑎𝑦𝑎𝑟𝑐)AAT=max(AATinputs+delayarc)
 
-+delay
-arc
-	​
-
-)
+```
 
 In the figure:
 
@@ -1899,6 +1868,67 @@ After a delay of 0.1, b1 gets A=0.1.
 At deeper nodes like o1, you see A=7.9, showing total accumulated path delay.
 👉 Blue numbers = when the data actually arrives ⏰.
 
+
+**Compute Required Arrival Time (RAT)**
+
+RAT (Yellow R) = the latest time a signal can arrive without violating timing.
+
+Calculated by back-propagation from output to input.
+
+```
+Formula:
+
+𝑅𝐴𝑇=min⁡(𝑅𝐴𝑇 𝑜𝑢𝑡𝑝𝑢𝑡−𝑑𝑒𝑙𝑎𝑦𝑎𝑟𝑐)RAT=min(RAT output−delayarc)
+
+```
+
+In the diagram:
+
+At output node o1, R=7.55.
+
+Back-propagated: c0 has R=5.2, c2 has R=2.2.
+👉 Yellow numbers = required deadlines ⏳.
+
+**Compute Slack**
+
+Slack (Red S) = margin between RAT and AAT.
+ 
+ ```
+Formula:
+
+𝑆𝑙𝑎𝑐𝑘=𝑅𝐴𝑇−𝐴𝐴𝑇Slack=RAT−AAT
+
+```
+
+Example from diagram:
+
+At o1, S=-0.35.
+
+Negative slack ❌ means a timing violation (path is too slow).
+👉 Slack = safety margin 🛟. Positive = safe, Negative = fail 🚨.
+
+**Convert Pins to Nodes & Do GBA/PBA Analysis**
+
+Why convert pins into nodes?
+
+It allows per-pin timing, more accurate than just per-gate.
+
+Delays differ between input→output arcs, so pin-level modeling avoids under/overestimation.
+
+Graph-Based Analysis (GBA):
+
+Approximates worst-case paths quickly.
+
+Uses max arrival times without exploring all real paths.
+
+Path-Based Analysis (PBA):
+
+Explores actual paths.
+
+More accurate but slower.
+👉 GBA = fast check ⚡, PBA = detailed deep dive 🧮.
+
+![WhatsApp Image 2025-10-10 at 17 47 41_77dca644](https://github.com/user-attachments/assets/e2b702d0-e4dd-40f8-957a-f05eae59099d)
 
 
 
