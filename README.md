@@ -2160,6 +2160,12 @@ Tox variation ↑ → Id ↓ → delay ↑
 
 </details>
 
+<details>
+	<summary> Generate Timing Graphs with OpenSTA </summary>
+
+	
+</details>
+
 
 
 
