@@ -1928,6 +1928,142 @@ More accurate but slower.
 
 ![WhatsApp Image 2025-10-10 at 17 47 41_77dca644](https://github.com/user-attachments/assets/e2b702d0-e4dd-40f8-957a-f05eae59099d)
 
+**🔋 1. Introduction to transistor-level circuit for flops**
+
+At the transistor level, a flip-flop (FF) is made up of MOSFETs (both PMOS and NMOS) arranged to store a bit of data.
+
+Think of it like a tiny lock 🗝️ where the transistors act as switches to control the data flow.
+
+Cross-coupled inverters 🔄 create feedback to hold the state.
+
+Transmission gates 🚪 or pass transistors decide when new data enters.
+
+![WhatsApp Image 2025-10-10 at 22 39 21_d9d7a267](https://github.com/user-attachments/assets/26d3220c-2900-4153-a2d5-14ec43dfcd04)
+
+**🔄 2. Negative and positive latch transistor-level operation**
+
+Positive latch ➕🔓: Transparent when clk = 1, it passes input to output. When clk = 0, it locks the value.
+
+Negative latch ➖🔓: Transparent when clk = 0, and locks when clk = 1.
+
+Both are just transistor networks (pass-transistor + inverters) that act like a door that only opens at specific clock times ⏰.
+
+![WhatsApp Image 2025-10-10 at 22 37 29_07def61e](https://github.com/user-attachments/assets/9fe0706c-cd7a-4346-948f-959f3a9d4bcf)
+![WhatsApp Image 2025-10-10 at 22 37 29_ba447a66](https://github.com/user-attachments/assets/1b052939-981c-4c13-8e08-0444eede744d)
+![WhatsApp Image 2025-10-10 at 22 37 28_f61e1214](https://github.com/user-attachments/assets/00643390-b327-4a09-b4c4-84d9c7f78e51)
+
+**📏 3. Library setup time calculation**
+
+Setup time is the minimum time ⏳ the input data must be stable before the clock edge.
+
+Libraries calculate this by sweeping input arrival times and checking when the flop still latches data correctly.
+
+If violated ❌, you get metastability (output stuck in an undefined state 🤯).
+
+![WhatsApp Image 2025-10-10 at 22 37 28_e0e73430](https://github.com/user-attachments/assets/47601a84-f25d-4c62-811f-beb7685ec212)
+
+**⏱️ 4. Clk-Q delay calculation**
+
+Clk-Q delay = time taken for the output (Q) to change after the clock edge.
+
+At the transistor level, this depends on:
+
+Load capacitance ⚡
+
+Transistor sizing 📐
+
+Supply voltage 🔋
+
+It’s basically the reaction time of the flop once it hears the clock’s "GO!" 🏃‍♂️.
+
+![WhatsApp Image 2025-10-10 at 22 37 27_c0188d09](https://github.com/user-attachments/assets/cc777537-4ad0-411f-a0a7-815a3b473baf)
+
+**📉 5. Steps to create eye diagram for jitter analysis**
+
+An eye diagram 👁️ is made by overlaying multiple signal transitions to visualize data quality.
+Steps:
+
+Collect clock/data waveform 📡 over many cycles.
+
+Overlay them on the same time window 🪞.
+
+The open “eye” 👁️ shows good timing margins; a closed eye means poor signal integrity ⚠️.
+
+Used in high-speed designs like SerDes, DDR, etc.
+
+![WhatsApp Image 2025-10-10 at 22 37 26_420f017c](https://github.com/user-attachments/assets/758b5bc8-31ae-4c62-9ce5-ebd9bc76571a)
+
+**📊 6. Jitter extraction and accounting in setup timing analysis**
+
+Jitter = randomness in clock edges 🌀.
+
+Extracted from measured or simulated waveforms by checking clock edge variations relative to ideal timing.
+
+In setup analysis, jitter reduces effective available time:
+
+Effective time = Clock period – (setup + jitter)
+
+Think of it like traffic delays 🚦—you always subtract buffer time to be safe.
+
+![WhatsApp Image 2025-10-10 at 22 37 26_29b7af03](https://github.com/user-attachments/assets/e7849118-690c-4065-92dc-c76146e9bf4f)
+
+**Setup Analysis – Graphical ➡️ Textual Representation**
+
+Graphical view:
+
+You see a launch flop 📤 and a capture flop 📥 connected through combinational logic ⚡.
+
+The clock edge ⏰ triggers the launch flop.
+
+Data must reach the capture flop’s input before the next active clock edge.
+
+Textual meaning:
+
+Data launches at time T0.
+
+Must arrive at capture flop input before Tclk – Tsetup.
+```
+Setup check equation:
+
+Launch_clk + Data_path_delay ≤ Capture_clk + Tperiod – Tsetup
+```
+If violated ❌, the capture flop may miss data or go metastable 🤯.
+
+![WhatsApp Image 2025-10-10 at 22 55 35_9eb0a493](https://github.com/user-attachments/assets/5b9b9ffd-73bd-40d2-833b-7b9784ba82fa)
+
+**Hold Analysis with Real Clocks**
+
+Real scenario:
+
+Unlike setup (which looks across cycles 🌀), hold checks within the same clock edge.
+
+Data must not change too soon after the capture clock edge.
+
+With real clocks ⏱️, you also consider skew (difference in arrival times).
+
+If launch clock arrives earlier than capture clock ➡️ data may race ahead 🏃 and overwrite the old value.
+```
+Equation form:
+
+Launch_clk + Data_path_delay ≥ Capture_clk + Thold
+```
+Violation → Race condition ⚔️.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
