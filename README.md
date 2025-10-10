@@ -1761,7 +1761,143 @@ gtkwave post_synth_sim.vcd
 
 ✨ In short, GLS acts as the final checkpoint between design and hardware — ensuring that our BabySoC beats to the right clock, with real-world timing accuracy and functional integrity ❤️🔐.
 
+<details>
+<summary> Fundamentals of STA </summary>
 
+🕒 Static Timing Analysis (STA)
+
+STA ensures your digital circuit works reliably at the target clock frequency by checking all timing paths.
+
+**1️⃣ Setup / Hold Analysis**
+
+These checks make sure data is stable and captured correctly by flip-flops or latches:
+
+reg2reg: Timing between two flip-flops 🔁 ensures data launched by one reaches the next safely.
+
+in2reg: Input pin to register timing ➡️🧩 checks signals entering the design.
+
+reg2out: Register to output timing 🧩➡️ guarantees proper output timing.
+
+in2out: Input to output combinational paths ➡️⚡ are validated.
+
+clock gating: Checks timing impact when clocks are gated for power saving 🕹️💡.
+
+recovery/removal: Ensures flip-flops recover properly from async reset ♻️🛠️.
+
+data-to-data: Validates timing through combinational paths 🔗⚡.
+
+latch time borrowing: Latches can "borrow" time for slightly late data ⏳🟡.
+
+Launch flop → combinational logic → capture flop. Yellow dots indicate key timing points.
+
+**2️⃣ Slew / Transition Analysis**
+
+Analyzes signal rise and fall speed, affecting timing integrity:
+
+Data transitions 📈📉 must be fast enough to meet setup/hold.
+
+Clock transitions ⏰📈 must be clean to avoid timing issues.
+
+Too slow or too fast transitions can cause violations or glitches.
+
+**3️⃣ Load Analysis**
+
+Looks at fanout and capacitance that impact delay:
+
+High fanout 🔌🧩 slows down signal propagation.
+
+Large capacitance ⚡🪫 increases signal delay.
+
+These factors are crucial for accurate propagation delay estimation.
+
+**4️⃣ Clock Analysis**
+
+Checks clock timing and quality:
+
+Skew ↔️⏰ ensures the same clock reaches all flip-flops at proper times.
+
+Pulse width ⏱️📏 guarantees the clock pulse is long enough for reliable latching.
+
+Proper clock analysis ensures synchronous design stability.
+
+**5️⃣ Diagram Highlights**
+
+Standard STA path: Launch Flop → Combinational Logic → Capture Flop.
+
+Yellow dots mark critical timing points.
+
+Clock gating & reset signals show control path effects.
+
+Clock network includes buffers and gates affecting skew.
+
+Pulse width waveform validates minimum clock duration.
+
+![WhatsApp Image 2025-10-10 at 17 29 15_562451d5](https://github.com/user-attachments/assets/1a510828-d3be-485a-81a6-4364586b1c00)
+
+### 📊 STA DAG Analysis
+
+This diagram is a timing graph used in Static Timing Analysis to check signal propagation delays, arrival times, required times, and slack across a digital circuit.
+
+**Convert Logic Gates into Nodes**
+
+Each logic gate (AND, OR, MUX, etc.) is split into input pins → gate arc → output pin.
+
+In the graph above, you see pins (i1, a1, b0, etc.) as nodes.
+
+This makes timing analysis fine-grained, because delay depends on pin-to-pin paths rather than the whole gate.
+👉 Think of it like zooming in 🔍 on gate connections instead of the whole block.
+
+
+Compute Actual Arrival Time (AAT)
+
+AAT (Blue A) = the earliest time a signal arrives at a node.
+
+Formula:
+
+𝐴
+𝐴
+𝑇
+=
+max
+⁡
+(
+𝐴
+𝐴
+𝑇
+𝑖
+𝑛
+𝑝
+𝑢
+𝑡
+𝑠
++
+𝑑
+𝑒
+𝑙
+𝑎
+𝑦
+𝑎
+𝑟
+𝑐
+)
+AAT=max(AAT
+inputs
+	​
+
++delay
+arc
+	​
+
+)
+
+In the figure:
+
+i1 has A=0 (source).
+
+After a delay of 0.1, b1 gets A=0.1.
+
+At deeper nodes like o1, you see A=7.9, showing total accumulated path delay.
+👉 Blue numbers = when the data actually arrives ⏰.
 
 
 
