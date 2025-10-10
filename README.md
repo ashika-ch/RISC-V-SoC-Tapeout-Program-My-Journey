@@ -2127,88 +2127,21 @@ Let’s connect the dots 🔗
 a. Resistance (R):
 
 In wires/interconnects, 
-```𝑅
-=
-𝜌
-𝐿
-𝐴
-R=ρ
-A
-L
+```
+𝑅=𝜌𝐿𝐴R=ρAL
 ```
 
 If etching increases R, charging a node takes longer 🐌
 
 b. Drain Current (Id):
 ```
-𝐼
-𝑑
-∝
-𝜇
-𝐶
-𝑜
-𝑥
-𝑊
-𝐿
-(
-𝑉
-𝑔
-𝑠
-−
-𝑉
-𝑡
-ℎ
-)
-2
-I
-d
-	​
-
-∝μC
-ox
-	​
-
-L
-W
-	​
-
-(V
-gs
-	​
-
-−V
-th
-	​
-
-)
-2
+𝐼𝑑∝𝜇𝐶𝑜𝑥𝑊𝐿(𝑉𝑔𝑠−𝑉𝑡ℎ)2Id∝μCoxLW(Vgs−Vth)2
 ```
 If Tox ↑ → Cox ↓ → Id ↓ (weaker drive 💪 → slower switching)
 
 c. Delay (τ):
 ```
-Delay ≈ 
-𝐶
-𝑙
-𝑜
-𝑎
-𝑑
-⋅
-𝑉
-𝑑
-𝑑
-𝐼
-𝑑
-I
-d
-	​
-
-C
-load
-	​
-
-⋅V
-dd
+Delay ≈ 𝐶𝑙𝑜𝑎𝑑⋅𝑉𝑑𝑑𝐼𝑑IdCload⋅Vdd
 ```
 So:
 ```
