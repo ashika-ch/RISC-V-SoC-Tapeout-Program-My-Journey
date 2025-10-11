@@ -2600,7 +2600,23 @@ report_wns shows Worst Negative Slack, i.e., the most critical path violation.
 
 <img width="1221" height="624" alt="Screenshot from 2025-10-11 21-36-32" src="https://github.com/user-attachments/assets/009dcc92-0c8a-4eeb-9549-fdf05b91679c" />
 <img width="1221" height="800" alt="Screenshot from 2025-10-11 21-42-24" src="https://github.com/user-attachments/assets/2a40f35a-390a-4a3f-a20a-aa421ad08017" />
-<img width="1221" height="800" alt="Screenshot from 2025-10-11 21-43-32" src="https://github.com/user-attachments/assets/a04fa8b4-7fca-4e78-b2ed-afc61832c761" />	
+<img width="1221" height="800" alt="Screenshot from 2025-10-11 21-43-32" src="https://github.com/user-attachments/assets/a04fa8b4-7fca-4e78-b2ed-afc61832c761" />
+
+🌟 Week 3 Conclusion: Post Synthesis GLS & STA Fundamentals
+
+This week, I explored the core flow of digital timing verification — right from logic validation to timing closure. ⚙️
+
+🔹 Part 1 – Post Synthesis GLS:
+I successfully performed Gate-Level Simulation (GLS) after synthesis to verify the functional equivalence between RTL and synthesized netlist. This helped ensure that the design behaves accurately even after technology mapping. 🧩
+
+🔹 Part 2 – Fundamentals of STA:
+I gained a solid understanding of Static Timing Analysis (STA) — analyzing setup, hold, and slack parameters 🕒 to ensure reliable timing performance. I also learned how STA ensures design stability without requiring dynamic simulation. 💡
+
+🔹 Part 3 – Generate Timing Graphs with OpenSTA:
+I executed timing graph generation using OpenSTA, visualizing timing paths and slack values. 📈 This gave me hands-on exposure to reading timing reports, setup/hold paths, and understanding delay propagation.
+
+✨ Overall, Week 3 strengthened my grasp on post-synthesis verification and timing analysis fundamentals, building a strong foundation for physical design and signoff stages. 💻🔧
+
 </details>
 </details>
 
