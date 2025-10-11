@@ -2602,6 +2602,7 @@ report_wns shows Worst Negative Slack, i.e., the most critical path violation.
 <img width="1221" height="800" alt="Screenshot from 2025-10-11 21-42-24" src="https://github.com/user-attachments/assets/2a40f35a-390a-4a3f-a20a-aa421ad08017" />
 <img width="1221" height="800" alt="Screenshot from 2025-10-11 21-43-32" src="https://github.com/user-attachments/assets/a04fa8b4-7fca-4e78-b2ed-afc61832c761" />
 
+
 🌟 Week 3 Conclusion: Post Synthesis GLS & STA Fundamentals
 
 This week, I explored the core flow of digital timing verification — right from logic validation to timing closure. ⚙️
