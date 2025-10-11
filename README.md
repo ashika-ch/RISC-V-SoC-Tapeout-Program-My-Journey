@@ -2510,11 +2510,98 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+**⚙️ Static Timing Analysis (STA) using OpenSTA**
 
+This project demonstrates how OpenSTA (Open Source Static Timing Analyzer) is used to analyze timing characteristics like setup paths, hold paths, and slack for a synthesized digital design.
+The goal was to perform a full STA flow — from loading the design to visualizing timing paths and generating detailed reports.
 
+**🧩 1️⃣ Loading the Synthesized Netlist and Constraints**
 
+In the first step, the complete design environment was set up inside OpenSTA.
+This involves reading the cell library, synthesized netlist, and timing constraints. Each file plays a specific role in the timing analysis flow.
 
-	
+🔹 Files Used:
+
+📘 slow.lib → Standard cell timing library (defines cell delays, setup/hold requirements, transition times, etc.)
+
+📗 top.v → Synthesized gate-level netlist (generated after synthesis; includes all logic instances and connections)
+
+📙 constraints.sdc → Synopsys Design Constraints file (defines clock periods, input/output delays, and timing exceptions)
+
+🔹 Commands Executed:
+read_liberty slow.lib          ;# Load cell library
+read_verilog top.v             ;# Read synthesized netlist
+link_design top                ;# Link top-level design
+read_sdc constraints.sdc       ;# Apply design constraints
+update_timing                  ;# Perform initial timing propagation
+
+💡 Explanation:
+
+read_liberty loads the delay and timing models for every standard cell used.
+
+read_verilog imports the gate-level design hierarchy.
+
+link_design ensures all cell references are resolved using the library.
+
+read_sdc applies the defined timing environment (clocks, delays).
+
+update_timing runs the timing engine to calculate path delays and setup/hold requirements.
+
+✨ Outcome:
+
+At the end of this step, OpenSTA successfully created the timing graph internally, representing all logic connections and clock domains.
+This serves as the base for detailed timing path analysis in the next steps.
+
+**📊 2️⃣ Generating Timing Graphs (Setup/Hold Paths & Slack)**
+
+After the design setup, timing paths were extracted and visualized to study setup and hold behavior.
+The goal was to understand how data propagates between sequential elements and to identify any slack violations.
+
+🧠 Explanation:
+
+The report_timing command traces the critical path from a source register (U1/Q) to a destination register (U2/D).
+
+The -format dot option exports the path in Graphviz (.dot) format — a standard graphical representation format.
+
+Graphviz then converts this .dot file into a visual image (.png), clearly showing cell delays, net delays, and slack values.
+
+🧩 Graph Features:
+
+⏱️ Propagation delay: Total delay of data through combinational logic.
+
+⛔ Setup slack: Difference between arrival time and required time at capture flip-flop.
+
+⚡ Hold slack: Minimum time between launch and capture events.
+
+🔁 Clock path analysis: Visualizes the relationship between clock and data arrival times.
+
+✨ Outcome:
+
+A graphical timing representation (timing_graph.png) was generated.
+It displayed the critical timing path, highlighting delay elements and slack — giving a clear view of how close the design is to timing closure.
+
+**📑 3️⃣ Capturing Timing Reports and Corresponding Graphs**
+
+To quantify the results, multiple reports were generated, capturing both detailed and summary-level timing metrics.
+This step ensures timing analysis is measurable, verifiable, and documented.
+
+🔹 Commands Executed:
+report_checks -path_delay min_max -fields {slew capacitance delay time slack} -digits 3 > timing_report.txt
+report_tns > tns_report.txt
+report_wns > wns_report.txt
+
+🧠 Explanation:
+
+report_checks gives detailed information on setup and hold timing checks, including cell delay, net delay, and slack.
+
+report_tns provides Total Negative Slack, representing the total sum of all timing violations in the design.
+
+report_wns shows Worst Negative Slack, i.e., the most critical path violation.
+
+<img width="1221" height="624" alt="Screenshot from 2025-10-11 21-36-32" src="https://github.com/user-attachments/assets/009dcc92-0c8a-4eeb-9549-fdf05b91679c" />
+<img width="1221" height="800" alt="Screenshot from 2025-10-11 21-42-24" src="https://github.com/user-attachments/assets/2a40f35a-390a-4a3f-a20a-aa421ad08017" />
+<img width="1221" height="800" alt="Screenshot from 2025-10-11 21-43-32" src="https://github.com/user-attachments/assets/a04fa8b4-7fca-4e78-b2ed-afc61832c761" />	
+</details>
 </details>
 
 
