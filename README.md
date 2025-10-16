@@ -2820,7 +2820,7 @@ In short: Delay analysis reveals how quickly CMOS logic transitions between logi
 
 <img width="1219" height="794" alt="Screenshot from 2025-10-13 19-29-50" src="https://github.com/user-attachments/assets/926a124f-c70a-483c-96a4-8e918a44de92" />
 
-<\details>
+</details>
 
 <details> 
 <summary> SPICE Netlists / Code </summary>
@@ -2981,7 +2981,7 @@ VIN in 0 DC 0
 <img width="1219" height="794" alt="Screenshot from 2025-10-13 19-25-37" src="https://github.com/user-attachments/assets/8f450518-4342-4207-9f6f-eff931ae2ca3" />
 <img width="1219" height="794" alt="Screenshot from 2025-10-13 19-20-54" src="https://github.com/user-attachments/assets/235e410a-8173-4ed1-b15c-560a4da3e0fe" />
 <img width="1219" height="794" alt="Screenshot from 2025-10-13 19-21-39" src="https://github.com/user-attachments/assets/c1a6c496-7433-4b14-a4dc-962fb4f4f80f" />
-<\details>
+</details>
 
 <details>
 <summary>Plots & Figures</summary>
@@ -3094,7 +3094,7 @@ Rise and fall times show transition speed of output edges.
 <img width="1220" height="796" alt="Screenshot from 2025-10-16 22-03-00" src="https://github.com/user-attachments/assets/18c9290b-7c05-4052-a177-38a60002aedc" />
 <img width="1206" height="800" alt="Screenshot from 2025-10-15 20-20-15" src="https://github.com/user-attachments/assets/d95dfc28-af41-454b-9042-5b2267a9ea5c" />
 <img width="1206" height="800" alt="Screenshot from 2025-10-15 20-18-14" src="https://github.com/user-attachments/assets/80545eda-3ccb-4020-ae39-ad8183fd1bdc" />
-<\details>
+</details>
 
 
 
