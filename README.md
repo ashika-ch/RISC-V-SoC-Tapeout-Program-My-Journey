@@ -2621,6 +2621,480 @@ I executed timing graph generation using OpenSTA, visualizing timing paths and s
 </details>
 </details>
 
+<details>
+	<summary>Week 4 - CMOS Circuit Design (sky130-style) </summary>
+
+**🧠 1️⃣ What is CMOS?**
+
+CMOS stands for Complementary Metal-Oxide-Semiconductor.
+It’s a technology used to build integrated circuits (ICs) — like microprocessors 🧩, microcontrollers ⚙️, memory chips 💾, and other digital logic circuits 🔢.
+
+👉 The word “complementary” refers to using both NMOS (n-type MOSFET) and PMOS (p-type MOSFET) transistors in a pair.
+
+**⚙️ 2️⃣ Basic Principle**
+
+CMOS circuits use complementary and symmetrical pairs of transistors:
+
+NMOS transistor → conducts when input is logic 1 (high voltage) ⚡
+
+PMOS transistor → conducts when input is logic 0 (low voltage) 💤
+
+💡 When one is ON, the other is OFF — ensuring low power consumption 🔋.
+
+**🔍 3️⃣ CMOS Inverter (The Heart 💚 of CMOS Logic)**
+
+The CMOS inverter is the simplest and most important CMOS circuit.
+
+🧩 Structure:
+
+PMOS connected between VDD (power supply) 🔋 and output.
+
+NMOS connected between output and GND (ground) ⬇️.
+
+Input is common to both gates 🌀.
+
+🧮 Operation:
+
+Input	PMOS	NMOS	Output
+0 (Low) 💤	ON ✅	OFF ❌	1 (High) ⚡
+1 (High) ⚡	OFF ❌	ON ✅	0 (Low) 💤
+
+💥 Output = NOT(Input) → This forms a logic inverter.
+
+**🔋 4️⃣ Power Consumption**
+
+CMOS is famous for its low static power consumption 🧊 because:
+
+Current flows only during switching (when output changes from 0 to 1 or 1 to 0).
+
+No current flows when the circuit is stable (both transistors not ON together).
+
+🔋 Power = Dynamic (Switching) Power + Leakage Power
+
+**⚡ 5️⃣ Advantages**
+
+✨ Low power consumption – Ideal for battery-operated devices 🔋
+✨ High noise immunity – Stable even with electrical noise 💪
+✨ High packing density – More transistors per chip 🔩
+✨ Wide voltage range – Can operate at different supply voltages ⚙️
+✨ Scalability – CMOS technology keeps shrinking (Moore’s law 📉)
+
+**🧨 6️⃣ Disadvantages**
+
+⚠️ Slower than NMOS-only circuits in older designs
+⚠️ Susceptible to damage by static electricity ⚡ (ESD sensitive)
+⚠️ Leakage current increases in modern deep-submicron technology 🧬
+
+**🧩 7️⃣ Applications**
+
+📱 Microprocessors
+💾 Memory (RAM, ROM)
+🧠 Digital logic gates and ICs
+📷 CMOS image sensors
+⌚ Low-power embedded systems
+
+**🧬 8️⃣ CMOS Fabrication Steps (Simplified)**
+
+Start with Silicon Wafer 🪨
+
+Oxidation – Grow SiO₂ layer 🌫️
+
+Photolithography – Transfer patterns using light 🕶️
+
+Etching – Remove unwanted oxide 🔪
+
+Doping – Add impurities for NMOS/PMOS regions ⚗️
+
+Metal deposition – Add interconnections 🧲
+
+Packaging – Final IC ready 🧠✨
+
+**🧠 9️⃣ Key Concepts**
+
+Threshold Voltage (Vth): Minimum voltage to turn ON a MOSFET ⚙️
+
+Propagation Delay (tp): Time taken for signal change ⏱️
+
+Noise Margin: Ability to tolerate unwanted voltage noise 📶
+
+**💫 🔟 CMOS vs Other Technologies**
+Feature	CMOS	NMOS	TTL
+Power	🔋 Very low	⚡ Higher	🔥 High
+Speed	🚀 High	⚡ Moderate	🐢 Slow
+Noise immunity	💪 Strong	👎 Weak	👍 Medium
+Fabrication complexity	🔧 Moderate	🔧 Simple	🧩 Different
+
+<summary>🧠 Introduction / Background</summary>
+
+Complementary Metal-Oxide-Semiconductor (CMOS) technology 🧩 is the foundation of almost all modern digital integrated circuits — from microprocessors 💻 to memory chips 💾. CMOS devices consist of both NMOS (n-type MOSFET) and PMOS (p-type MOSFET) transistors, working together to perform logic operations efficiently ⚡ with very low static power consumption 🔋.
+
+To understand and analyze CMOS behavior, several key experiments are performed in the lab. Each experiment focuses on different aspects of the transistor and circuit performance. Let’s explore their purpose one by one 👇
+
+**1️⃣ ID–VDS Characteristics (Output Characteristics) 📉**
+
+Purpose:
+This experiment studies how the drain current (ID) varies with drain-to-source voltage (VDS) for different values of gate voltage (VGS).
+
+Why it’s done:
+
+To identify different regions of operation of a MOSFET:
+
+Cutoff region: transistor OFF 🚫
+
+Linear (ohmic) region: acts like a variable resistor ⚙️
+
+Saturation region: acts like a current source 🔋
+
+To extract key device parameters like threshold voltage (VTH), mobility, and channel length modulation (λ).
+
+To understand transistor behavior in analog and digital switching conditions.
+
+In short: ID–VDS helps visualize how the MOSFET conducts current under different biases ⚡ — crucial for designing amplifiers and digital gates.
+
+2️⃣ ID–VGS Characteristics (Transfer Characteristics) 🔄
+
+Purpose:
+To study how the drain current (ID) changes with the gate-to-source voltage (VGS) while keeping VDS constant.
+
+Why it’s done:
+
+Helps determine threshold voltage (VTH) accurately — the point where the transistor just starts to conduct 🚦.
+
+Shows the transconductance (gm), which measures how effectively the gate voltage controls the drain current.
+
+Important for understanding switching speed and gain in CMOS logic circuits.
+
+In short: ID–VGS gives insight into the input control behavior of the MOSFET — how “strongly” a transistor turns ON or OFF ⚙️.
+
+3️⃣ Voltage Transfer Characteristics (VTC) of CMOS Inverter 🔁
+
+Purpose:
+To plot the output voltage (Vout) versus input voltage (Vin) for a CMOS inverter.
+
+Why it’s done:
+
+Helps analyze switching behavior of digital gates 🧠.
+
+Identifies key points like:
+
+Noise margins (how tolerant the circuit is to noise) 📶
+
+Transition voltage (VM) (where output switches sharply) ⚡
+
+Logic levels (VOH, VOL) for proper logic ‘1’ and ‘0’.
+
+Demonstrates how both NMOS and PMOS transistors complement each other for low static power consumption 🔋.
+
+In short: The VTC curve represents the heart of digital logic — showing how a CMOS inverter flips signals with high noise immunity and minimal power use 💪.
+
+4️⃣ Static and Dynamic Power Dissipation 🔥
+
+Purpose:
+To measure how much power is consumed by CMOS circuits in both steady (static) and switching (dynamic) states.
+
+Why it’s done:
+
+Static power = leakage current when the circuit is idle 💤
+
+Dynamic power = charging/discharging of load capacitances during switching ⚙️
+
+Helps optimize circuits for low-power design, crucial in portable electronics 📱 and IoT devices 🌐.
+
+In short: This experiment shows why CMOS is energy-efficient — consuming almost no power when idle and scaling well with voltage/frequency ⚡.
+
+5️⃣ Delay and Switching Speed ⏱️
+
+Purpose:
+To analyze how fast a CMOS inverter or logic gate responds when input changes.
+
+Why it’s done:
+
+Measures propagation delay (tp) and rise/fall times (tr, tf).
+
+Helps evaluate circuit speed and timing performance ⏩.
+
+Crucial for designing high-frequency and high-speed digital systems.
+
+In short: Delay analysis reveals how quickly CMOS logic transitions between logic ‘0’ and ‘1’ — key for modern GHz processors ⚙️💨.
+
+<img width="1219" height="794" alt="Screenshot from 2025-10-13 19-29-50" src="https://github.com/user-attachments/assets/926a124f-c70a-483c-96a4-8e918a44de92" />
+
+
+<summary> SPICE Netlists / Code </summary>
+
+🧾 What is a SPICE Netlist?
+
+A SPICE (Simulation Program with Integrated Circuit Emphasis) netlist is a text-based description 📝 of an electronic circuit.
+It contains:
+
+The circuit elements (transistors, resistors, capacitors, etc.)
+
+Their connections (nodes) 🔌
+
+The models for devices (like NMOS, PMOS)
+
+The simulation commands to analyze the circuit 📊
+
+SPICE simulations help us study how CMOS circuits behave before actually fabricating them 🧪💡.
+
+🔋 1️⃣ ID–VDS Characteristics (Output Characteristics)
+
+This experiment studies how drain current (ID) varies with drain–source voltage (VDS) for different gate voltages (VGS).
+
+🧠 Purpose:
+
+To identify the transistor’s operating regions: cutoff, linear, and saturation 🚦.
+
+🧩 SPICE Netlist Example:
+* CMOS NMOS ID-VDS Characteristics ⚡
+M1  D G S B  NMOS_MODEL  L=180n  W=1u
+VGS G S DC 1.0
+VDS D S DC 0
+VBS B S DC 0
+
+* Sweep VDS from 0 to 2V for multiple VGS values
+.DC VDS 0 2 0.05 SWEEP VGS 0 2 0.5
+
+* NMOS Model Parameters
+.MODEL NMOS_MODEL NMOS (LEVEL=1 VTO=0.7 KP=120e-6 LAMBDA=0.05)
+
+* Output command
+.PRINT DC ID(M1)
+.END
+
+
+📈 This simulation plots ID vs VDS for several VGS values — showing how current increases and saturates as VDS increases.
+
+⚡ 2️⃣ ID–VGS Characteristics (Transfer Characteristics)
+🧠 Purpose:
+
+To analyze how drain current (ID) varies with gate voltage (VGS) at a constant VDS.
+
+🧩 SPICE Netlist Example:
+
+```
+* NMOS ID-VGS Characteristics 🔄
+M1 D G S B NMOS_MODEL L=180n W=1u
+VDS D S DC 1.0
+VBS B S DC 0
+
+* Sweep VGS from 0V to 2V
+.DC VGS 0 2 0.05
+
+* NMOS Model
+.MODEL NMOS_MODEL NMOS (LEVEL=1 VTO=0.7 KP=120e-6 LAMBDA=0.05)
+
+.PRINT DC ID(M1)
+.END
+```
+
+📊 This gives the ID vs VGS curve, helping determine the threshold voltage (VTH) and transconductance (gm) 🧮.
+
+🔁 3️⃣ CMOS Inverter – Voltage Transfer Characteristics (VTC)
+🧠 Purpose:
+
+To plot the output voltage (Vout) versus input voltage (Vin) for a CMOS inverter — the most basic logic gate 🔀.
+
+🧩 SPICE Netlist Example:
+
+```
+* CMOS Inverter VTC Simulation 🧠
+M1 out in vdd vdd PMOS_MODEL L=180n W=2u
+M2 out in 0   0   NMOS_MODEL L=180n W=1u
+
+VDD vdd 0 DC 1.8
+VIN in 0 DC 0
+
+* Sweep input voltage
+.DC VIN 0 1.8 0.01
+
+.MODEL NMOS_MODEL NMOS (LEVEL=1 VTO=0.7 KP=120e-6 LAMBDA=0.05)
+.MODEL PMOS_MODEL PMOS (LEVEL=1 VTO=-0.7 KP=50e-6 LAMBDA=0.05)
+
+.PRINT DC V(in) V(out)
+.PLOT DC V(out) vs V(in)
+.END
+
+
+📈 The output will be a sharp transition — showing logic inversion and identifying key points like VM, noise margins, and VOH/VOL 🧭.
+
+⏱️ 4️⃣ Transient Analysis (Switching Behavior)
+🧠 Purpose:
+
+To study how fast a CMOS inverter switches when the input changes over time — i.e., propagation delay, rise/fall time ⏩.
+
+🧩 SPICE Netlist Example:
+* CMOS Inverter Transient Simulation ⏱️
+M1 out in vdd vdd PMOS_MODEL L=180n W=2u
+M2 out in 0   0   NMOS_MODEL L=180n W=1u
+
+VDD vdd 0 DC 1.8
+VIN in 0 PULSE(0 1.8 0n 100p 100p 5n 10n)
+
+.TRAN 0.1n 20n
+
+.MODEL NMOS_MODEL NMOS (LEVEL=1 VTO=0.7 KP=120e-6 LAMBDA=0.05)
+.MODEL PMOS_MODEL PMOS (LEVEL=1 VTO=-0.7 KP=50e-6 LAMBDA=0.05)
+
+.PRINT TRAN V(in) V(out)
+.PLOT TRAN V(in) V(out)
+.END
+```
+
+📊 This simulation shows how quickly the inverter responds when Vin toggles — allowing measurement of delay, rise/fall time, and power switching behavior ⚡.
+
+🌡️ 5️⃣ Parameter / Process Variation Simulation
+🧠 Purpose:
+
+To analyze how device parameter variations (like threshold voltage or mobility) affect circuit performance 🧬 — crucial for reliability and yield in manufacturing 🏭.
+
+🧩 SPICE Netlist Example:
+
+```
+* CMOS Inverter with Variation 🧪
+M1 out in vdd vdd PMOS_MODEL L=180n W=2u
+M2 out in 0   0   NMOS_MODEL L=180n W=1u
+
+VDD vdd 0 DC 1.8
+VIN in 0 DC 0
+
+.DC VIN 0 1.8 0.01 SWEEP PARAM VTO_N 0.6 0.8 0.05
+
+.MODEL NMOS_MODEL NMOS (LEVEL=1 VTO={VTO_N} KP=120e-6 LAMBDA=0.05)
+.MODEL PMOS_MODEL PMOS (LEVEL=1 VTO=-0.7 KP=50e-6 LAMBDA=0.05)
+
+.PRINT DC V(in) V(out)
+.END
+```
+
+
+📈 This shows how shifting threshold voltage (VTO) changes the switching point and VTC curve, helping understand process tolerance 🧮.
+
+<img width="1220" height="796" alt="Screenshot from 2025-10-16 22-06-43" src="https://github.com/user-attachments/assets/4ae050f1-f4e9-49ac-ac4a-f2e507eafbee" />
+<img width="1220" height="796" alt="Screenshot from 2025-10-16 22-01-39" src="https://github.com/user-attachments/assets/0775404c-7b4c-444d-9c80-27cfcb5c930f" />
+<img width="1219" height="794" alt="Screenshot from 2025-10-13 19-23-19" src="https://github.com/user-attachments/assets/8307d5d3-db2f-4908-a9b9-27e8225e377d" />
+<img width="1219" height="794" alt="Screenshot from 2025-10-13 19-25-37" src="https://github.com/user-attachments/assets/8f450518-4342-4207-9f6f-eff931ae2ca3" />
+<img width="1219" height="794" alt="Screenshot from 2025-10-13 19-20-54" src="https://github.com/user-attachments/assets/235e410a-8173-4ed1-b15c-560a4da3e0fe" />
+<img width="1219" height="794" alt="Screenshot from 2025-10-13 19-21-39" src="https://github.com/user-attachments/assets/c1a6c496-7433-4b14-a4dc-962fb4f4f80f" />
+
+<summary>Plots & Figures</summary>
+
+🔋 1️⃣ ID vs VDS Characteristics (Output Characteristics)
+
+🧠 Purpose:
+To analyze how the drain current (ID) varies with drain–source voltage (VDS) for different gate voltages (VGS).
+
+📈 Graph:
+Plot — ID (y-axis) vs VDS (x-axis) for multiple VGS values (e.g., 0.5 V, 1.0 V, 1.5 V, 2.0 V).
+
+🔍 Key Observations:
+
+At low VDS, the MOSFET operates in the linear (ohmic) region ⚙️.
+
+As VDS increases, the curve flattens, indicating saturation 🚀.
+
+Higher VGS → higher ID due to stronger inversion (more carriers).
+
+📝 Annotations (mark these on the plot):
+
+📍 Saturation point: where the curve starts to flatten.
+
+⚡ Linear region: initial rising part of the curve.
+
+💤 Cutoff: ID ≈ 0 when VGS < VTH.
+
+✏️ Label VGS values on each curve for clarity.
+
+🔄 2️⃣ ID vs VGS Characteristics (Transfer Characteristics)
+
+🧠 Purpose:
+To observe how ID changes with VGS (at constant VDS) — showing how the MOSFET “turns ON” and “OFF.”
+
+📈 Graph:
+Plot — ID (y-axis) vs VGS (x-axis).
+
+🔍 Key Observations:
+
+Below threshold voltage (VTH) → ID ≈ 0 (OFF region) 🚫.
+
+Above VTH → ID increases rapidly (saturation/ON region) ⚡.
+
+The curve is exponential at first, then quadratic.
+
+📝 Annotations:
+
+⚙️ Threshold voltage (VTH): mark the point where ID starts rising.
+
+📐 Label subthreshold slope (for small ID region).
+
+🔋 Indicate ON and OFF regions clearly.
+
+🔁 3️⃣ CMOS Inverter – Voltage Transfer Characteristics (VTC)
+
+🧠 Purpose:
+To study how the output voltage (Vout) varies with input voltage (Vin) — the fundamental switching behavior of a CMOS inverter 🔀.
+
+📈 Graph:
+Plot — Vout (y-axis) vs Vin (x-axis).
+
+🔍 Key Observations:
+
+Vout ≈ VDD when Vin < VM (switching point) → PMOS ON, NMOS OFF 🔋.
+
+Vout ≈ 0V when Vin > VM → NMOS ON, PMOS OFF ⚡.
+
+Sharp transition between high and low → strong switching performance.
+
+📝 Annotations:
+
+🎯 Switching point (VM): mark where Vin = Vout (midpoint).
+
+📍 Noise Margins:
+
+NMH (Noise Margin High) → VOH - VIH
+
+NML (Noise Margin Low) → VIL - VOL
+
+✏️ Label VOH, VOL, VIL, VIH, and VM.
+
+✅ Indicate regions: Logic ‘0’ 🟢, Transition Zone ⚙️, Logic ‘1’ 🔴.
+
+⏱️ 4️⃣ Transient Waveforms (Dynamic Switching Behavior)
+
+🧠 Purpose:
+To observe real-time switching of the CMOS inverter when input toggles — showing how fast it responds ⏩.
+
+📈 Graph:
+Plot — Vin(t) and Vout(t) vs Time (t).
+
+🔍 Key Observations:
+
+When Vin rises (0 → 1), Vout falls (1 → 0) — inverter action 🔄.
+
+The delay between Vin and Vout represents propagation delay (tp) ⏱️.
+
+Rise and fall times show transition speed of output edges.
+
+📝 Annotations:
+
+⏱️ tpHL: time delay for output going HIGH → LOW.
+
+⏱️ tpLH: time delay for output going LOW → HIGH.
+
+📍 Rise time (tr) and Fall time (tf).
+
+⚙️ Highlight steady logic levels (VOH, VOL).
+
+
+
+
+
+
+
+
+
+<details>
+
 
 
 
