@@ -2623,7 +2623,7 @@ I executed timing graph generation using OpenSTA, visualizing timing paths and s
 
 <details>
 	<summary>Week 4 - CMOS Circuit Design (sky130-style) </summary>
-
+	
 **🧠 1️⃣ What is CMOS?**
 
 CMOS stands for Complementary Metal-Oxide-Semiconductor.
@@ -2724,6 +2724,7 @@ Speed	🚀 High	⚡ Moderate	🐢 Slow
 Noise immunity	💪 Strong	👎 Weak	👍 Medium
 Fabrication complexity	🔧 Moderate	🔧 Simple	🧩 Different
 
+<details>
 <summary>🧠 Introduction / Background</summary>
 
 Complementary Metal-Oxide-Semiconductor (CMOS) technology 🧩 is the foundation of almost all modern digital integrated circuits — from microprocessors 💻 to memory chips 💾. CMOS devices consist of both NMOS (n-type MOSFET) and PMOS (p-type MOSFET) transistors, working together to perform logic operations efficiently ⚡ with very low static power consumption 🔋.
@@ -2751,7 +2752,7 @@ To understand transistor behavior in analog and digital switching conditions.
 
 In short: ID–VDS helps visualize how the MOSFET conducts current under different biases ⚡ — crucial for designing amplifiers and digital gates.
 
-2️⃣ ID–VGS Characteristics (Transfer Characteristics) 🔄
+**2️⃣ ID–VGS Characteristics (Transfer Characteristics) 🔄**
 
 Purpose:
 To study how the drain current (ID) changes with the gate-to-source voltage (VGS) while keeping VDS constant.
@@ -2766,7 +2767,7 @@ Important for understanding switching speed and gain in CMOS logic circuits.
 
 In short: ID–VGS gives insight into the input control behavior of the MOSFET — how “strongly” a transistor turns ON or OFF ⚙️.
 
-3️⃣ Voltage Transfer Characteristics (VTC) of CMOS Inverter 🔁
+**3️⃣ Voltage Transfer Characteristics (VTC) of CMOS Inverter 🔁**
 
 Purpose:
 To plot the output voltage (Vout) versus input voltage (Vin) for a CMOS inverter.
@@ -2787,7 +2788,7 @@ Demonstrates how both NMOS and PMOS transistors complement each other for low st
 
 In short: The VTC curve represents the heart of digital logic — showing how a CMOS inverter flips signals with high noise immunity and minimal power use 💪.
 
-4️⃣ Static and Dynamic Power Dissipation 🔥
+**4️⃣ Static and Dynamic Power Dissipation 🔥**
 
 Purpose:
 To measure how much power is consumed by CMOS circuits in both steady (static) and switching (dynamic) states.
@@ -2802,7 +2803,7 @@ Helps optimize circuits for low-power design, crucial in portable electronics �
 
 In short: This experiment shows why CMOS is energy-efficient — consuming almost no power when idle and scaling well with voltage/frequency ⚡.
 
-5️⃣ Delay and Switching Speed ⏱️
+**5️⃣ Delay and Switching Speed ⏱️**
 
 Purpose:
 To analyze how fast a CMOS inverter or logic gate responds when input changes.
@@ -2819,10 +2820,12 @@ In short: Delay analysis reveals how quickly CMOS logic transitions between logi
 
 <img width="1219" height="794" alt="Screenshot from 2025-10-13 19-29-50" src="https://github.com/user-attachments/assets/926a124f-c70a-483c-96a4-8e918a44de92" />
 
+<\details>
 
+<details> 
 <summary> SPICE Netlists / Code </summary>
 
-🧾 What is a SPICE Netlist?
+**🧾 What is a SPICE Netlist?**
 
 A SPICE (Simulation Program with Integrated Circuit Emphasis) netlist is a text-based description 📝 of an electronic circuit.
 It contains:
@@ -2837,7 +2840,7 @@ The simulation commands to analyze the circuit 📊
 
 SPICE simulations help us study how CMOS circuits behave before actually fabricating them 🧪💡.
 
-🔋 1️⃣ ID–VDS Characteristics (Output Characteristics)
+**🔋 1️⃣ ID–VDS Characteristics (Output Characteristics)**
 
 This experiment studies how drain current (ID) varies with drain–source voltage (VDS) for different gate voltages (VGS).
 
@@ -2846,6 +2849,7 @@ This experiment studies how drain current (ID) varies with drain–source voltag
 To identify the transistor’s operating regions: cutoff, linear, and saturation 🚦.
 
 🧩 SPICE Netlist Example:
+```
 * CMOS NMOS ID-VDS Characteristics ⚡
 M1  D G S B  NMOS_MODEL  L=180n  W=1u
 VGS G S DC 1.0
@@ -2861,11 +2865,11 @@ VBS B S DC 0
 * Output command
 .PRINT DC ID(M1)
 .END
-
+```
 
 📈 This simulation plots ID vs VDS for several VGS values — showing how current increases and saturates as VDS increases.
 
-⚡ 2️⃣ ID–VGS Characteristics (Transfer Characteristics)
+**⚡ 2️⃣ ID–VGS Characteristics (Transfer Characteristics)**
 🧠 Purpose:
 
 To analyze how drain current (ID) varies with gate voltage (VGS) at a constant VDS.
@@ -2890,7 +2894,7 @@ VBS B S DC 0
 
 📊 This gives the ID vs VGS curve, helping determine the threshold voltage (VTH) and transconductance (gm) 🧮.
 
-🔁 3️⃣ CMOS Inverter – Voltage Transfer Characteristics (VTC)
+**🔁 3️⃣ CMOS Inverter – Voltage Transfer Characteristics (VTC)**
 🧠 Purpose:
 
 To plot the output voltage (Vout) versus input voltage (Vin) for a CMOS inverter — the most basic logic gate 🔀.
@@ -2914,16 +2918,17 @@ VIN in 0 DC 0
 .PRINT DC V(in) V(out)
 .PLOT DC V(out) vs V(in)
 .END
-
+```
 
 📈 The output will be a sharp transition — showing logic inversion and identifying key points like VM, noise margins, and VOH/VOL 🧭.
 
-⏱️ 4️⃣ Transient Analysis (Switching Behavior)
+**⏱️ 4️⃣ Transient Analysis (Switching Behavior)**
 🧠 Purpose:
 
 To study how fast a CMOS inverter switches when the input changes over time — i.e., propagation delay, rise/fall time ⏩.
 
 🧩 SPICE Netlist Example:
+```
 * CMOS Inverter Transient Simulation ⏱️
 M1 out in vdd vdd PMOS_MODEL L=180n W=2u
 M2 out in 0   0   NMOS_MODEL L=180n W=1u
@@ -2943,7 +2948,7 @@ VIN in 0 PULSE(0 1.8 0n 100p 100p 5n 10n)
 
 📊 This simulation shows how quickly the inverter responds when Vin toggles — allowing measurement of delay, rise/fall time, and power switching behavior ⚡.
 
-🌡️ 5️⃣ Parameter / Process Variation Simulation
+**🌡️ 5️⃣ Parameter / Process Variation Simulation**
 🧠 Purpose:
 
 To analyze how device parameter variations (like threshold voltage or mobility) affect circuit performance 🧬 — crucial for reliability and yield in manufacturing 🏭.
@@ -2976,10 +2981,12 @@ VIN in 0 DC 0
 <img width="1219" height="794" alt="Screenshot from 2025-10-13 19-25-37" src="https://github.com/user-attachments/assets/8f450518-4342-4207-9f6f-eff931ae2ca3" />
 <img width="1219" height="794" alt="Screenshot from 2025-10-13 19-20-54" src="https://github.com/user-attachments/assets/235e410a-8173-4ed1-b15c-560a4da3e0fe" />
 <img width="1219" height="794" alt="Screenshot from 2025-10-13 19-21-39" src="https://github.com/user-attachments/assets/c1a6c496-7433-4b14-a4dc-962fb4f4f80f" />
+<\details>
 
+<details>
 <summary>Plots & Figures</summary>
 
-🔋 1️⃣ ID vs VDS Characteristics (Output Characteristics)
+**🔋 1️⃣ ID vs VDS Characteristics (Output Characteristics)**
 
 🧠 Purpose:
 To analyze how the drain current (ID) varies with drain–source voltage (VDS) for different gate voltages (VGS).
@@ -3005,7 +3012,7 @@ Higher VGS → higher ID due to stronger inversion (more carriers).
 
 ✏️ Label VGS values on each curve for clarity.
 
-🔄 2️⃣ ID vs VGS Characteristics (Transfer Characteristics)
+**🔄 2️⃣ ID vs VGS Characteristics (Transfer Characteristics)**
 
 🧠 Purpose:
 To observe how ID changes with VGS (at constant VDS) — showing how the MOSFET “turns ON” and “OFF.”
@@ -3029,7 +3036,7 @@ The curve is exponential at first, then quadratic.
 
 🔋 Indicate ON and OFF regions clearly.
 
-🔁 3️⃣ CMOS Inverter – Voltage Transfer Characteristics (VTC)
+**🔁 3️⃣ CMOS Inverter – Voltage Transfer Characteristics (VTC)**
 
 🧠 Purpose:
 To study how the output voltage (Vout) varies with input voltage (Vin) — the fundamental switching behavior of a CMOS inverter 🔀.
@@ -3059,7 +3066,7 @@ NML (Noise Margin Low) → VIL - VOL
 
 ✅ Indicate regions: Logic ‘0’ 🟢, Transition Zone ⚙️, Logic ‘1’ 🔴.
 
-⏱️ 4️⃣ Transient Waveforms (Dynamic Switching Behavior)
+**⏱️ 4️⃣ Transient Waveforms (Dynamic Switching Behavior)**
 
 🧠 Purpose:
 To observe real-time switching of the CMOS inverter when input toggles — showing how fast it responds ⏩.
@@ -3084,6 +3091,10 @@ Rise and fall times show transition speed of output edges.
 📍 Rise time (tr) and Fall time (tf).
 
 ⚙️ Highlight steady logic levels (VOH, VOL).
+<img width="1220" height="796" alt="Screenshot from 2025-10-16 22-03-00" src="https://github.com/user-attachments/assets/18c9290b-7c05-4052-a177-38a60002aedc" />
+<img width="1206" height="800" alt="Screenshot from 2025-10-15 20-20-15" src="https://github.com/user-attachments/assets/d95dfc28-af41-454b-9042-5b2267a9ea5c" />
+<img width="1206" height="800" alt="Screenshot from 2025-10-15 20-18-14" src="https://github.com/user-attachments/assets/80545eda-3ccb-4020-ae39-ad8183fd1bdc" />
+<\details>
 
 
 
@@ -3093,7 +3104,9 @@ Rise and fall times show transition speed of output edges.
 
 
 
-<details>
+
+
+<\details>
 
 
 
