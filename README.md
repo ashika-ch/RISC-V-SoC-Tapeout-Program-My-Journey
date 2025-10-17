@@ -2981,6 +2981,13 @@ VIN in 0 DC 0
 <img width="1219" height="794" alt="Screenshot from 2025-10-13 19-25-37" src="https://github.com/user-attachments/assets/8f450518-4342-4207-9f6f-eff931ae2ca3" />
 <img width="1219" height="794" alt="Screenshot from 2025-10-13 19-20-54" src="https://github.com/user-attachments/assets/235e410a-8173-4ed1-b15c-560a4da3e0fe" />
 <img width="1219" height="794" alt="Screenshot from 2025-10-13 19-21-39" src="https://github.com/user-attachments/assets/c1a6c496-7433-4b14-a4dc-962fb4f4f80f" />
+<img width="1222" height="800" alt="Screenshot from 2025-10-17 19-39-56" src="https://github.com/user-attachments/assets/d0c2c3a2-946a-4408-b582-1393ad347b78" />
+<img width="1222" height="800" alt="Screenshot from 2025-10-17 19-41-02" src="https://github.com/user-attachments/assets/30ec89bb-32c8-4596-8779-b7a1394f7a90" />
+<img width="1222" height="800" alt="Screenshot from 2025-10-17 19-36-45" src="https://github.com/user-attachments/assets/924f00d5-d1e9-4aef-80b0-ff1faec22dd2" />
+<img width="1222" height="800" alt="Screenshot from 2025-10-17 19-34-33" src="https://github.com/user-attachments/assets/5b1d95dc-c5dd-4fe5-8b59-990e09c43a6a" />
+<img width="1222" height="800" alt="Screenshot from 2025-10-17 19-32-10" src="https://github.com/user-attachments/assets/fac95c7e-9b5c-498f-b511-8f471f49c267" />
+<img width="1222" height="800" alt="Screenshot from 2025-10-17 19-29-52" src="https://github.com/user-attachments/assets/906f82c8-1c01-4731-8d56-e383a611ca18" />
+<img width="1222" height="800" alt="Screenshot from 2025-10-17 19-26-12" src="https://github.com/user-attachments/assets/2f3fb45e-f23a-42ae-8d1f-8b6056eefb73" />
 </details>
 
 <details>
@@ -3094,19 +3101,492 @@ Rise and fall times show transition speed of output edges.
 <img width="1220" height="796" alt="Screenshot from 2025-10-16 22-03-00" src="https://github.com/user-attachments/assets/18c9290b-7c05-4052-a177-38a60002aedc" />
 <img width="1206" height="800" alt="Screenshot from 2025-10-15 20-20-15" src="https://github.com/user-attachments/assets/d95dfc28-af41-454b-9042-5b2267a9ea5c" />
 <img width="1206" height="800" alt="Screenshot from 2025-10-15 20-18-14" src="https://github.com/user-attachments/assets/80545eda-3ccb-4020-ae39-ad8183fd1bdc" />
+<img width="1222" height="800" alt="Screenshot from 2025-10-17 19-38-12" src="https://github.com/user-attachments/assets/23a092ee-36f4-4ec1-bf12-453047d181a6" />
+<img width="1222" height="800" alt="Screenshot from 2025-10-17 19-32-39" src="https://github.com/user-attachments/assets/72b07d83-b924-4e91-a14d-0e7bfff99d6f" />
+<img width="1222" height="800" alt="Screenshot from 2025-10-17 19-29-28" src="https://github.com/user-attachments/assets/2811bc61-3d0b-44fa-b7f2-29b076ab00f2" />
+
 </details>
 
+<details>
+	<summary>Tabulated Results</summary>
+
+**🧾 CMOS Summary Table Overview**
+
+Your CMOS inverter characterization experiment gives you key electrical parameters that describe how well your circuit switches and how reliable it is under noise and variations. These are typically tabulated like this 👇:
+
+Parameter	Symbol	Typical Unit	Description
+Threshold Voltage	V<sub>th</sub>	V	Voltage where MOSFET turns ON
+Rise Propagation Delay	t<sub>pLH</sub>	ns	Time for output to rise (LOW→HIGH)
+Fall Propagation Delay	t<sub>pHL</sub>	ns	Time for output to fall (HIGH→LOW)
+Low Noise Margin	NM<sub>L</sub>	V	Margin for logic LOW noise immunity
+High Noise Margin	NM<sub>H</sub>	V	Margin for logic HIGH noise immunity
+Switching Point	V<sub>M</sub>	V	Input voltage where output = input
+Variation Effects	—	—	How above parameters change with V<sub>DD</sub>, T, or device size
+
+**⚡ 1️⃣ Extracted Threshold Voltage (V<sub>th</sub>)**
+
+Meaning:
+👉 The threshold voltage is the minimum gate voltage (V<sub>GS</sub>) needed to turn ON the MOSFET and allow current to flow from drain to source.
+
+How it’s found:
+🔍 From the Id–Vgs curve, you plot drain current (I<sub>D</sub>) vs gate voltage (V<sub>GS</sub>).
+The point where I<sub>D</sub> starts to increase rapidly is V<sub>th</sub>.
+
+CMOS context:
+
+For NMOS, V<sub>th,n</sub> ≈ +0.4–0.7 V
+
+For PMOS, V<sub>th,p</sub> ≈ −0.4–−0.7 V
+
+Importance:
+⚙️ Determines switching threshold, static power, and noise margins.
+Too low → leakage 🔥
+Too high → slow switching 🐢
+
+**⏱️ 2️⃣ Rise / Fall Propagation Delays**
+
+Meaning:
+Propagation delay (t<sub>p</sub>) measures how fast the inverter responds to input changes.
+
+t<sub>pLH</sub>: Delay when output goes from LOW → HIGH (rising) ⬆️
+
+t<sub>pHL</sub>: Delay when output goes from HIGH → LOW (falling) ⬇️
+
+How it’s found:
+From the transient simulation (Vout vs time):
+
+Measure the time when input reaches 50% of V<sub>DD</sub>.
+
+Measure when output crosses 50% of V<sub>DD</sub>.
+
+Difference = propagation delay 🕒
+
+Interpretation:
+
+Ideally, t<sub>pLH</sub> ≈ t<sub>pHL</sub> for symmetric CMOS.
+
+Smaller delay ⇒ faster circuit ⚡
+
+**📉 3️⃣ Noise Margins (NM<sub>L</sub>, NM<sub>H</sub>)**
+
+Noise margins tell how much noise voltage the circuit can tolerate without logic errors 🧩
+
+VTC (Voltage Transfer Curve) is used — plot V<sub>OUT</sub> vs V<sub>IN</sub>.
+
+Definitions:
+
+NM<sub>L</sub> = V<sub>IL</sub> − V<sub>OL</sub>
+(Tolerance for noise on LOW level)
+
+NM<sub>H</sub> = V<sub>OH</sub> − V<sub>IH</sub>
+(Tolerance for noise on HIGH level)
+
+How to find:
+
+Mark points where the slope of VTC = −1.
+
+Those input voltages correspond to V<sub>IL</sub> and V<sub>IH</sub>.
+
+Then compute NM<sub>L</sub> and NM<sub>H</sub> 🔍
+
+Importance:
+
+Larger NM = better noise immunity 💪
+
+Balanced noise margins → reliable digital switching ✅
+
+**⚙️ 4️⃣ Effect of Variation (Process, Voltage, Temperature — “PVT”)**
+
+CMOS performance changes due to variations in fabrication or environment 🌡️⚡🏭
+
+Variation Type	Effect
+Voltage (V<sub>DD</sub>)	↑ V<sub>DD</sub> → faster switching, larger noise margins; ↓ V<sub>DD</sub> → slower, smaller NM
+Temperature (T)	↑ T → mobility ↓ → delay ↑, leakage ↑
+Process (W/L)	Wider W → stronger drive → faster; longer L → slower but stable
+
+Impact on Parameters:
+
+Switching Point (V<sub>M</sub>): shifts depending on NMOS/PMOS strength ⚖️
+
+Noise Margins: may shrink at low supply or high temperature 😬
+
+Delays: increase under slow or hot conditions 🐢
+
+**🧮 5️⃣ Example Summary Table (for Report)**
+Parameter	Symbol	NMOS/PMOS	Typical Value	Observation
+Threshold Voltage	V<sub>th,n</sub> / V<sub>th,p</sub>	+0.55 V / −0.55 V	Extracted from Id–Vgs curve	
+Rise Delay	t<sub>pLH</sub>	—	1.8 ns	Output low→high transition
+Fall Delay	t<sub>pHL</sub>	—	1.5 ns	Output high→low transition
+Low Noise Margin	NM<sub>L</sub>	—	0.6 V	Good LOW-level stability
+High Noise Margin	NM<sub>H</sub>	—	0.7 V	Good HIGH-level stability
+Switching Voltage	V<sub>M</sub>	—	0.9 V	From VTC midpoint
+Variation Effect	—	—	Slight delay ↑, NM ↓ at 85 °C	Typical CMOS PVT behavior
+
+![WhatsApp Image 2025-10-17 at 19 52 46_02739e97](https://github.com/user-attachments/assets/2ffe9469-92e0-4850-b8db-d7018c7130ba)
+![WhatsApp Image 2025-10-17 at 19 52 46_8b534e76](https://github.com/user-attachments/assets/e6107e90-b09d-421f-a796-fd6828a0fe4e)
+![WhatsApp Image 2025-10-17 at 19 53 48_321f146e](https://github.com/user-attachments/assets/979aca28-3f9d-4322-ba93-a51a7c15f83b)
+![WhatsApp Image 2025-10-17 at 19 56 14_bb458c16](https://github.com/user-attachments/assets/80738e69-5b98-499f-96d5-23288e97f303)
+</details>
+
+<details>
+	<summary>Observations / Analysis</summary>
+
+**Observations & Analysis — per experiment (CMOS) 🔬🪄**
+
+Below I’ve written short, focused discussions for the common CMOS characterization experiments you’ll run (Id–Vgs, Id–Vds, VTC, transient switching, VTC/PVT variations, noise margins, delay vs load). Each entry gives (1) what you see, (2) why it happens — device physics, and (3) how it ties back to STA concepts (delay models, variation, margins) — with emoji highlights for clarity.
+
+**1) Id – Vgs (Transfer / Threshold extraction) 📈�**�
+
+What you see
+
+Low current for small Vgs, then an exponential/subthreshold region, then a rapid rise in Id once Vgs approaches Vth, and eventually a stronger (quadratic/linear) conduction region. ⚡️
+
+Threshold extraction point (e.g., constant-current or linear-extrapolation) visible as the “knee” in the curve. 🎯
+
+Why it happens (device physics)
+
+At low Vgs: channel not formed — only subthreshold diffusion current (exponential w.r.t Vgs). 🧊
+
+As Vgs ≈ Vth: inversion charge forms, channel conduction begins → strong current increase. The threshold is where surface potential enables enough inversion carriers. 🪙
+
+Mobility, velocity saturation, and series resistance shape the slope and the post-threshold region (mobility decreases with vertical field; at high Vgs velocity saturation dominates). 🧲
+
+STA tie-back (delay, variation, margin)
+
+Vth directly influences on-current (Ion) → higher Ion → faster gates (lower delay); lower Ion → slower gates. ⏱️
+
+Leakage in standby comes from subthreshold current — affects static power and noise floor used in STA power models. 🔋
+
+Process variation that shifts Vth (ΔVth) maps to variation in gate delay in STA (fast/typ/slow corners). Use Vth corners when building timing libraries and analyzing worst-case vs best-case. ⚖️
+
+**2) Id – Vds (Output characteristics / Saturation onset) 🛑➡️**
+
+What you see
+
+For small Vds you see a roughly linear (ohmic) region; as Vds increases the slope flattens and current saturates — the saturation region. The boundary (Vds ≈ Vgs − Vth for long-channel) marks saturation onset. 🏁
+
+Why it happens (device physics)
+
+At low Vds: channel is continuous; current limited by channel resistance (linear region). 🧵
+
+At higher Vds: channel “pinches off” near the drain; further increases in Vds don’t linearly increase current — carriers are swept by drift, and velocity saturation or channel-length modulation dictate behavior. 🌪️
+
+Short-channel effects: drain-induced barrier lowering (DIBL) reduces Vth at high Vds causing increased current and a slope even in saturation. 🔍
+
+STA tie-back
+
+Output resistance (ro) and channel-length modulation impact the effective drive and thus the RC delay model — slower than expected if ro low. 🧮
+
+DIBL and Vth roll-off show as variation across PVT corners and worsen worst-case timing (must be included in STA corners). ☁️
+
+For timing libraries: Ion vs Vds behavior determines current-drive in liberty (lib) delay models (e.g., nonlinear current source for Elmore RC). 🧩
+
+**3) Voltage Transfer Curve (VTC) — inverter static characteristic 🔁📊**
+
+What you see
+
+S-shaped Vout vs Vin curve: high output at low Vin, then a steep switching region, then low output at high Vin. The switching point (Vm) is near the midpoint of the transition. The slope in the transition is steep and may cross −1 at two points used for noise margin calculation. 🎢
+
+Why it happens (device physics)
+
+At small Vin: PMOS strongly ON, NMOS OFF → Vout ≈ VDD. At large Vin: NMOS ON, PMOS OFF → Vout ≈ 0. Between: both conduct and the stronger transistor at a given Vin biases the output. The steep region is where both devices are partially on (strong competition). ⚔️
+
+Device sizing (W/L ratio) moves Vm: larger PMOS shifts Vm down, larger NMOS shifts Vm up. 🧷
+
+STA tie-back
+
+Vm relates to logical switching threshold used in STA when mapping to input arrival times and threshold crossing detection (50% VDD or custom Vm). 🎯
+
+Noise margins (NM_L, NM_H) are calculated from VTC and directly affect static timing guard-banding and robustness requirements for interconnect drivers. 🛡️
+
+For standard-cell libraries, VTC-derived thresholds influence the defined input threshold and thus propagation delay measurements in timing characterization. 🧭
+
+**4) Transient switching (rise/fall, load effects) ⏱️🔁**
+
+What you see
+
+Output rises/falls with an RC shape; rise time (t_r) and fall time (t_f) measured between 10–90% or 20–80%. Propagation delays t_pLH and t_pHL measured at 50% crossing. Under heavier capacitive load, delays increase and edges slow. 🕰️🐢
+
+Why it happens (device physics)
+
+Switching is charging/discharging the load capacitance through the device resistance / current source: 
+
+```
+𝑡≈𝑅eq𝐶𝐿t≈ReqCL	​
+
+```
+. R_eq relates to transistor on-resistance; Ion and mobility set how quickly the capacitor charges. ⚡️➡️🧱
+
+As device enters velocity-saturation, the current saturates and effective R_eq behaves differently than long-channel models — edge rates degrade. Also, rise vs fall asymmetry arises due to different mobility (μn > μp) and W/L sizing. 🧲
+
+STA tie-back
+
+STA uses delay models (e.g., alpha-power law, resistor–capacitor (RC), or effective current sources) that approximate this behavior. Measured t_pLH/t_pHL feed into LUTs for cell delay vs input slope and output load. 🔧
+
+Slew rate (input transition time) affects delay — slower input increases cell delay (captured in nonlinear delay models). 🔁
+
+Load-dependent delay explains why buffer insertion and sizing are used in STA optimization (logical effort, tapering). 🏗️
+
+**5) VTC under variation (PVT: VDD, Temp, Process) 🌡️⚡🏭**
+
+What you see
+
+Lower VDD → VTC compresses and Vm shifts, transitions broaden; higher temperature → mobility drops, slopes soften, currents reduce; process corner (fast/slow devices) shifts Vm and steepness. Variation may reduce NM and increase delay spread. 🎛️
+
+Why it happens (device physics)
+
+VDD scaling reduces available overdrive (Vgs − Vth) → weaker channel charge → lower Ion → slower switching. 🔋
+
+Temperature increases phonon scattering → mobility ↓ → Ion ↓; leakage via subthreshold and junction leakage often increases. 🔥
+
+Process shifts (e.g., threshold shifts, oxide thickness, doping variations) change Vth and mobility directly. 🧪
+
+STA tie-back
+
+STA corners model these behaviors (typ, ss, tt, ff, hot/cold). You must simulate worst-case (slow, low VDD, high T) for setup margin and best-case (fast, high VDD, low T) for hold checks. 🧾
+
+Variation increases timing uncertainty — timing margins and guardbands are set accordingly; statistical STA (SSTA) can quantify probability of timing failure due to correlated variations. 🎲
+
+PVT-induced NM shrinkage may force conservative sizing or timing margins to maintain reliability. 🛡️
+
+**6) Noise Margin experiments (VTC slope & stability) 🧩🔐**
+
+What you see
+
+Two points where dVout/dVin = −1 define VIH and VIL; NM_H and NM_L are the distances from these to VOH/ VOL respectively. Under variation or loading, these margins shrink. ⚠️
+
+Why it happens (device physics)
+
+Noise margin depends on how stiff the rails are (device drive) and how sharply the VTC transitions — steep transition = large margins. Reduced overdrive or increased series resistance flattens the transition and reduces margins. 🪛
+
+STA tie-back
+
+Noise margin values feed into cell library characterizations and determine allowable voltage noise on nets without violating logic levels. They also influence design for reliability, metastability risk analysis, and required regenerative strength in feedback elements. 🔄
+
+In timing, NM interacts with cross-talk and simultaneous switching noise (SSN) — STA tools sometimes include margin offsets to account for IR drop and SSN. 🌊
+
+**7) Delay vs Load / Driving Strength (sizing experiments) 🧮📦**
+
+What you see
+
+Larger device widths → lower delay (better drive), but higher input capacitance; optimum sizing trades off fanout and intrinsic delay. Plot of delay vs load shows diminishing returns with bigger drivers. 📉➡️📈
+
+Why it happens (device physics)
+
+Wider devices increase channel charge capacity → larger Ion → smaller R_eq. But they also add gate capacitance which the previous stage must drive. Physics: more parallel channels → more carriers, less resistive bottleneck. 🧵🧵
+
+STA tie-back
+
+This is the basis of logical effort and tapering in STA-driven optimization: choose stage effort to minimize overall delay. Sizing decisions are encoded in library drive-strength cells. ⚙️
+
+Over-driving increases dynamic power (C·V²·f) — STA-guided synthesis must balance timing vs power. 🔋↕️
+
+**8) Temperature / Leakage experiments (static behavior) 🌡️💧**
+
+What you see
+
+As temperature rises, leakage (subthreshold and junction) increases, static Vout levels may shift slightly, and delay increases. At high temperature leakage might dominate low-power designs. ♨️
+
+Why it happens (device physics)
+
+Thermal energy increases carrier generation and reduces bandgap effective barrier — more carriers even when device “off” → leakage up. Mobility decreases with T → slower switching. 📉
+
+STA tie-back
+
+STA must account for leakage when performing power-aware timing and for IR-drop effects (voltage droop under load causing local VDD reductions). Thermal corners are used to check timing under hot conditions. 🥵
+
+Quick practical checklist — What to report for each experiment ✅📝
+
+Raw plots: Id–Vgs, Id–Vds, VTC, transient Vout/Vin, VTC under PVT.
+
+Extracted numbers: Vth (NMOS/PMOS), Vm, t_pLH, t_pHL, t_r/t_f, NM_L, NM_H, Ion/Ioff, ro.
+
+Conditions: VDD, Temp, W/L, load capacitance — always state exact values. 📌
+
+Observations: saturation onset voltage, subthreshold slope changes, DIBL evidence, Vm shifts.
+
+Short physics explanation: mobility, inversion/channel formation, pinch-off, DIBL, velocity saturation.
+
+STA mapping: which STA corner(s) these correspond to, what happens to propagation delay and margins, recommended guardbands. 🔁
+
+</details>
+
+<details> 
+<summary></summary>
+
+**Conclusions — high-level reflections (CMOS) 🧠⚡️**
+
+Below are focused, emoji-rich takeaways that tie transistor physics to real-world timing behavior and show how variation / supply changes affect STA margins and critical paths. Each bullet explains what happens, why it matters, and practical/STA consequences + mitigations.
+
+**1️⃣ How transistor-level behavior constrains timing in real circuits**
+• On-current (Ion) sets the pace ⚡→🐢
+
+What — The transistor’s drive current (Ion) determines how fast it can charge/discharge loads, so delay scales roughly like
+
+```
+𝑡≈𝐶load⋅𝑉𝐼efft≈IeffCload⋅V
+```
+​
+Why (physics) — Ion depends on mobility (μ), overdrive (Vgs−Vth), channel length, and velocity saturation. In short-channel devices, velocity saturation and series resistances cap current.
+STA consequence — Library delay entries and timing arcs reflect effective current; weak Ion → longer propagation delay → paths become critical.
+Mitigation — upsizing transistors or adding buffers (logical effort), use cells with higher drive strength, or reduce capacitive load. 🛠️
+
+• Threshold voltage (Vth) is a gatekeeper 🎯
+
+What — Vth controls when a device turns on and how strong it is at a given Vgs.
+Why (physics) — Vth shift changes overdrive (Vgs−Vth) and thus Ion exponentially (in subthreshold) and strongly in above-threshold region.
+STA consequence — Vth variation maps directly to delay spread across PVT corners (fast/typ/slow). Cells with higher Vth are slower but leak less → timing vs power tradeoff.
+Mitigation — pick library corners carefully in STA, use adaptive body bias or multi-Vth libraries for a balanced design. ⚖️
+
+• Mobility & temperature effects — speed slides with T 🌡️
+
+What — Higher temperature reduces mobility → lower Ion → slower transitions.
+Why (physics) — Phonon scattering increases with temperature; hence carrier mobility drops.
+STA consequence — Hot corners (high T) are often worst-case for setup timing; cold corners may be worst for hold. Include thermal corners in STA.
+Mitigation — thermal-aware floorplanning, allocate guardbands, or use timing monitors. 🔥🧊
+
+• Short-channel effects (DIBL, CLM) shift behavior ↗️↘️
+
+What — DIBL lowers apparent Vth at high Vds; channel-length modulation gives finite output resistance (ro).
+Why (physics) — Drain field influences barrier at the source; effective channel length is reduced.
+STA consequence — Drive current and output resistance vary with operating point → impacts delay and slope of VTC → unexpected critical paths or reduced noise margins.
+Mitigation — include short-channel models in characterization; use worst-case corner models (SS/FF) and monte-carlo/SSTA for statistical effects. 🔬
+
+• Wiring & parasitics turn local device speed into global timing 📦➕🔌
+
+What — interconnect RC dominates as technology scales; even very fast transistors can be slowed by long wires and heavy loads.
+Why (physics) — longer metal = higher R and C; delay becomes RC-dominated (not just transistor-limited).
+STA consequence — Critical path often is a chain of gates + long wires — buffer insertion/tapering is required. Timing closure must model parasitics accurately.
+Mitigation — buffer insertion, net sizing, floorplan-aware routing, and accurate extraction for STA. 🧭
+
+**2️⃣ How variation or supply changes affect STA margins & critical paths**
+• Supply voltage (VDD) changes are multiplier effects 🔋↕️
+
+What — Lower VDD reduces overdrive (Vgs−Vth), drastically lowering Ion and increasing delay; higher VDD speeds things up (but raises power).
+Why (physics) — Ion ∝ (Vgs−Vth)^α (α ≈ 1–2 depending on regime); so small VDD reductions cause big current reductions.
+STA consequence — Low-VDD corners (or IR drop) create worst-case timing for setup; a path that’s safe at nominal VDD may fail at droop/low-VDD. Critical path ranking can change with VDD.
+Mitigation — Include voltage-droop-aware STA, MCMM runs (multi-corner multi-mode), use on-chip regulation / decoupling, dynamic voltage scaling with margin tracking. ⚙️
+
+• Process variation (global & local) spreads delays — statistical risk 🎲
+
+What — Die-to-die or within-die variation changes Vth, mobility, oxide thickness, etc., producing a distribution of delays.
+Why (physics) — Imperfect doping, random dopant fluctuation, and geometric variation change device parameters unpredictably.
+STA consequence — Deterministic corners can be pessimistic or optimistic; SSTA (statistical STA) is needed to estimate yield and probability of timing violations. Critical paths may vary per die — a different path can be worst-case in another chip.
+Mitigation — use SSTA, guardband for 6σ targets if needed, redundancy/repair, timing-aware placement to reduce sensitivity to variation. 🛡️
+
+• Temperature + VDD + process interact nonlinearly — corners can flip-critical paths 🔄
+
+What — The slowest path at one corner might be non-critical at another (e.g., path A slow at low-VDD, path B slow at high T).
+Why (physics) — Device physics affect different gates differently (stack effects, body effect, input slews); interactions change delay slopes.
+STA consequence — Must run timing across multiple corners & modes; relying on a single worst-case corner can miss failures. Slack margins must be sized to cover corner interactions.
+Mitigation — MCMM timing runs, identify paths with large corner sensitivity, and prioritize optimization where sensitivity is highest. 🔍
+
+• IR drop & simultaneous switching noise (SSN) reduce local VDD — hidden killer ⚠️
+
+What — Current surges cause local supply droop and ground bounce; effective local VDD drops for critical cells.
+Why (physics) — Finite resistance in power grid and inductance in package cause voltage transient under large current.
+STA consequence — Apparent slow-down of cells, reduced noise margins; can flip timing at full-chip activity though single-cell tests pass.
+Mitigation — EM/IR analysis, stronger power grid, decoupling capacitors, on-chip monitors, and IR-aware timing checks. 🧯
+
+**3️⃣ Practical takeaways & recommendations ✅**
+
+Model faithfully: Use characterized library data (delay vs input slew vs output load) including PVT corners and short-channel effects. 📚
+
+Run MCMM & SSTA: Don’t rely on one corner — run multiple corners and statistical analysis to understand yield and margin. 🎲
+
+Target sensitivity hotspots: Identify paths with high sensitivity to Vth/VDD/T and optimize them first (sizing, buffering, placement). 🎯
+
+Design power/timing trade-offs consciously: Lowering VDD saves power but increases worst-case delay — use adaptive schemes (DVFS) with timing monitors. ⚖️
+
+Plan for IR/SSN: Add timing margin and IR-aware STA, strengthen PDN (power delivery network). 🧩
+
+Use on-chip monitoring: Ring-oscillators, critical-path monitors, or shadow registers help adapt to runtime variation. 🔬
+</details>
+
+<details>
+
+<summary>References / Citations</summary>
+
+**📖 References / Citations (with respect to SKY130)**
+
+**🧩 1️⃣ SkyWater SKY130 PDK**
+
+Source:
+👉 SkyWater Technology Foundry + Google Open-Source PDK Repository
+🔗 GitHub: https://github.com/google/skywater-pdk
+
+About:
+
+🌍 The Sky130 process is a 130 nm CMOS technology node developed by SkyWater Technology and made open-source through collaboration with Google.
+
+🧠 It provides transistor-level SPICE models, standard-cell libraries, device layouts, and characterization data for both NMOS and PMOS devices.
+
+⚙️ Includes device corners (TT, SS, FF, FS, SF), BSIM3v3 models, and parasitic extraction rules, enabling accurate simulation and timing analysis.
+
+🧪 Used for analog, digital, and mixed-signal circuit characterization and education — ideal for understanding CMOS behavior such as VTC, Id–Vds, and delay.
+
+🛠️ Model files: typically located under
+
+skywater-pdk/libraries/sky130_fd_pr/latest/models/
 
 
+with sub-models like sky130_fd_pr__nfet_01v8 and sky130_fd_pr__pfet_01v8.
 
+In your report:
 
+SPICE simulations and transistor characteristics were derived using SkyWater SKY130 PDK models (sky130_fd_pr__nfet_01v8 and sky130_fd_pr__pfet_01v8) to ensure realistic CMOS behavior for Id–Vgs, Id–Vds, and inverter VTC experiments.
 
+**📗 2️⃣ BSIM3v3 Compact Model (Used inside SKY130)**
 
+Source:
 
+Berkeley Short-Channel IGFET Model (BSIM3v3), UC Berkeley Device Group
 
+About:
 
+🧬 It’s the industry-standard physics-based MOSFET model used for short-channel devices in sub-micron CMOS.
 
-<\details>
+🧮 Accurately models threshold voltage roll-off, velocity saturation, DIBL, and mobility degradation.
+
+🧠 SKY130 PDK uses BSIM3v3 parameters within its .model cards to represent device I–V and C–V behavior in SPICE simulations.
+
+In your report:
+
+Device modeling followed BSIM3v3 equations embedded in the SKY130 SPICE decks, ensuring realistic capture of transistor-level effects for timing and noise analysis.
+
+**📘 3️⃣ Open-Source Toolchain References**
+
+You may list the tools used for simulation and STA (if applicable):
+
+⚡ ngspice / Xyce — for SPICE simulations of Id–Vds, Id–Vgs, and inverter transient behavior.
+
+⏱️ OpenSTA — for static timing analysis, delay extraction, and timing-graph understanding.
+
+🧩 Magic / Klayout / OpenROAD — for layout visualization, parasitic extraction, and PVT analysis in the open-source flow.
+
+In your report:
+
+Simulations were performed using open-source tools such as ngspice for circuit characterization and OpenSTA for timing interpretation, with device parameters sourced from SkyWater SKY130 PDK.
+
+**📙 4️⃣ Supporting Literature / References**
+
+📕 “CMOS Digital Integrated Circuits: Analysis and Design” — Sung-Mo (Steve) Kang, Yusuf Leblebici.
+
+📘 “Digital Integrated Circuits: A Design Perspective” — Jan M. Rabaey et al.
+
+📗 BSIM3v3 MOSFET Model User’s Manual — UC Berkeley Device Group.
+
+📙 SkyWater SKY130 Open-Source PDK Documentation — https://skywater-pdk.readthedocs.io
+	
+</details>
+
+🧠 Conclusion – Week 4: CMOS Circuit Design (sky130-style)
+
+This week’s work using Sky130 🌿 showed how transistor physics directly drives circuit timing 🕒.
+By simulating NMOS/PMOS behavior ⚡, extracting Vt (~0.43 V) 🎯, plotting VTC ⚙️, and measuring delays (~60–70 ps) ⏱️, I saw how device properties shape STA concepts like slack, delay, and noise margins 📊.
+Varying VDD and W/L revealed clear effects on switching point, noise margin, and delay 🔄 — proving that real CMOS variation defines timing reliability in digital design 💡.
+
+</details>
 
 
 
