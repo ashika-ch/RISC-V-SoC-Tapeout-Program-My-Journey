@@ -3593,6 +3593,7 @@ Varying VDD and W/L revealed clear effects on switching point, noise margin, and
 <summary>Week 5 - OpenROAD Flow Setup and Floorplan + Placement</summary>
 
 <details>
+	<summary> Introduction to OpenRoad </summary>
 🎯 Objective
 
 You are going to:
@@ -3721,7 +3722,6 @@ flowchart LR
         %% linkStyle 11 stroke-width:0px
         style H fill:#ff0000,stroke:#000000,stroke-width:4px
     end
-
 ```
 
 OpenROAD provides [OpenROAD-flow-scripts](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts)
@@ -4357,7 +4357,9 @@ Go to **Tools → Heat maps → Placement Density** → **✓ Show numbers**
 </details>
 
 <details>
-<summary>🎉 Conclusion – Week 5: OpenROAD Flow Success! 🚀</summary>
+<summary>Conclusion</summary>
+
+🎉 Conclusion – Week 5: OpenROAD Flow Success! 🚀
 
 By the end of Week 5, I have:
 
