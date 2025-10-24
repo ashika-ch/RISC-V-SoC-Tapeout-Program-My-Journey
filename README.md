@@ -3591,6 +3591,8 @@ Varying VDD and W/L revealed clear effects on switching point, noise margin, and
 <details>
 
 <summary>Week 5 - OpenROAD Flow Setup and Floorplan + Placement</summary>
+
+<details>
 🎯 Objective
 
 You are going to:
@@ -3641,9 +3643,6 @@ Goal: Arrange everything so the chip can later be routed and work fast and relia
 
 🔬 Before (SPICE): You designed circuits transistor-by-transistor — the microscopic view.
 🏗️ Now (OpenROAD Flow): You’re automating the creation of a full chip layout from logic — the macroscopic view.
-
-<details>
-<summary> Install OpenROAD Flow Scripts </summary>
 
 ## OpenROAD installation guide
 
@@ -3810,6 +3809,10 @@ The OpenROAD GUI is a powerful visualization, analysis, and debugging
 tool with a customizable Tcl interface. The below figures show GUI views for
 various flow stages including floorplanning, placement congestion,
 CTS and post-routed design.
+</details>
+
+<details>
+	<summary> Install OpenROAD Flow Scripts </summary>
 
 ### `Steps to Install OpenROAD and Run GUI`
 
@@ -4352,7 +4355,8 @@ Go to **Tools → Heat maps → Placement Density** → **✓ Show numbers**
 
 </details>
 
-🎉 Conclusion – Week 5: OpenROAD Flow Success! 🚀
+<details>
+<summary>🎉 Conclusion – Week 5: OpenROAD Flow Success! 🚀</summary>
 
 By the end of Week 5, I have:
 
@@ -4370,6 +4374,7 @@ By the end of Week 5, I have:
 
 📜 Log files proving successful execution and correctness of each stage.
 
+</details>
 </details>
 
 
