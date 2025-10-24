@@ -4312,7 +4312,7 @@ By the end of Week 5, I have:
 
 📸 Visual outputs (layout views and GUI screenshots)
 
-📜 Log files proving successful execution and correctness of each stage.
+📜 Log files proving successful execution and correctness of each stage. 
 
 </details>
 </details>
