@@ -3661,69 +3661,6 @@ Goal: Arrange everything so the chip can later be routed and work fast and relia
 
 **OpenROAD** is an open-source, fully automated RTL-to-GDSII flow for digital integrated circuit (IC) design. It supports synthesis, floorplanning, placement, clock tree synthesis, routing, and final layout generation. OpenROAD enables rapid design iterations, making it ideal for academic research and industry prototyping.
 
-```mermaid
-%%{
-  init: {
-    'theme': 'neutral',
-    'themeVariables': {
-      'textColor': '#000000',
-      'noteTextColor' : '#000000',
-      'fontSize': '20px'
-    }
-  }
-}%%
-
-flowchart LR
-    b0[                  ] --- b2[ ] --- b4[ ] --- ORFlow --- b1[ ] --- b3[ ] --- b5[                  ]
-    style b0 stroke-width:0px, fill: #FFFFFF00, color:#FFFFFF00
-    style b1 stroke-width:0px, fill: #FFFFFF00
-    style b2 stroke-width:0px, fill: #FFFFFF00
-    style b3 stroke-width:0px, fill: #FFFFFF00
-    style b4 stroke-width:0px, fill: #FFFFFF00
-    style b5 stroke-width:0px, fill: #FFFFFF00, color:#FFFFFF00
-
-    linkStyle 0 stroke-width:0px
-    linkStyle 1 stroke-width:0px
-    linkStyle 2 stroke-width:0px
-    linkStyle 3 stroke-width:0px
-    linkStyle 4 stroke-width:0px
-    linkStyle 5 stroke-width:0px
-
-
-    subgraph ORFlow
-    direction TB
-    style ORFlow fill:#ffffff00, stroke-width:0px
-        A[Verilog
-        + libraries
-        + constraints] --> FLOW
-        style A fill:#74c2b5,stroke:#000000,stroke-width:4px
-        subgraph FLOW
-        style FLOW fill:#FFFFFF00,stroke-width:4px
-
-        direction TB
-            B[Synthesis]
-            B --> C[Floorplan]
-            C --> D[Placement]
-            D --> E[Clock Tree Synthesis]
-            E --> F[Routing]
-            F --> G[Finishing]
-            style B fill:#f8cecc,stroke:#000000,stroke-width:4px
-            style C fill:#fff2cc,stroke:#000000,stroke-width:4px
-            style D fill:#cce5ff,stroke:#000000,stroke-width:4px
-            style E fill:#67ab9f,stroke:#000000,stroke-width:4px
-            style F fill:#fa6800,stroke:#000000,stroke-width:4px
-            style G fill:#ff6666,stroke:#000000,stroke-width:4px
-        end
-
-        FLOW --> H[GDSII
-        Final Layout]
-        %% H --- H1[ ]
-        %% style H1 stroke-width:0px, fill: #FFFFFF00
-        %% linkStyle 11 stroke-width:0px
-        style H fill:#ff0000,stroke:#000000,stroke-width:4px
-    end
-```
-
 OpenROAD provides [OpenROAD-flow-scripts](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts)
 as a native, ready-to-use prototyping and tapeout flow. However,
 it also enables the creation of any custom flow controllers based
