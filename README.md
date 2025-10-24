@@ -3837,7 +3837,7 @@ Inside the `flow/` Directory
 <details>
 <summary> Execution of Floorplan and Placement </summary>
 
-	## Floorplan and Placement of VSDBabySoC in OpenROAD
+### `Floorplan and Placement of VSDBabySoC in OpenROAD`
 
 ### 📚 Contents
  - [RTL2GDS Flow for VSDBabySoC: Initial Steps](#rtl2gds-flow-for-vsdbabysoc-initial-steps)
