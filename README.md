@@ -4464,6 +4464,68 @@ It has large number of design examples(43 designs with their best configurations
 
 <img width="815" height="467" alt="image" src="https://github.com/user-attachments/assets/e25b36e5-c677-4b1a-9ce6-da7080094682" />
 
+The design exploration utility is also used for regression testing(CI). we run OpenLANE on ~ 70 designs and compare the results to the best known ones.
+
+**DFT(Design for Test)**
+it perform scan inserption, automatic test pattern generation, Test patterns compaction, Fault coverage, Fault simulation.After that physical implementation is done by OpenROAD app. physical implementation involves the several steps:
+
+Floor/Power Planning
+
+End Decoupling Capacitors and Tap cells insertion
+
+Placements: Global and Detailed
+
+Post Placement Optimization
+
+Clock Tree synthesis (CTS)
+
+Routing: Global and Detailed
+
+Every time the netlist is modified.(CTS modifies the netlist and Post Placements optimization also modifies the netlist).so for that verification must be performed. The LCE(yosys) is used to formally confirm that the function did not change after modifying the netlist. ### Dealing with antenna rules Violation: when a metal wire segment is fabricated, it can act as antenna.as an antenna, it collect charges which can demaged the transister gates during the fabrication.
+<img width="591" height="317" alt="image" src="https://github.com/user-attachments/assets/991a61c3-8c44-418d-8c09-c7aae48e2722" />
+
+To address this issue, we have to limit the lenght of the wire. usually this is the job of the router. If router fails to do this, then there are two solutions:
+Bridging attaches a higher layer intermediary.Add antenna diode cell to leak away charges.(Antenna diodes are provided by the SCL)
+<img width="780" height="240" alt="image" src="https://github.com/user-attachments/assets/423b29e0-dba4-457c-9a8c-d957c0273a47" />
+
+With OpenLANE, we took a preventive approach. here we add fake antenna diode next to every cell input after placement. Then run the Antenna checker on the routed layout. If the checker reports a violation on cell input pin, replace the fake diode cell by a real one.
+<img width="397" height="287" alt="image" src="https://github.com/user-attachments/assets/e9c3069d-edc0-40a5-be1f-bcf6079d48c1" />
+
+**Static Timing analysis(STA)**
+It involves the interconnect RC Extraction(DEF2SPEF) from the routed layout, followed by STA on OpenSTA(OpenROAD) tool. resulting report will shows the timing violations if any violations is there.
+
+**Physical Verification (DRC and LVS)**
+Magic is used for design Rules checking and SPICE Extraction from Layout. Magic and Netgen are used for LVS.
+
+
+
+## <h1 id="header-1_3">Get familiar to open-source EDA tools</h1>
+### <h1 id="header-1_3_1">OpenLANE Directory structure in detail</h1>
+**Basic Linux Commands**
+
+**cd** : opens the particular folder
+
+**ls** : lists the content of the folder
+
+**pwd** : shows the present working directory
+
+**mkdir** : to make a new directory
+
+**command --help** : shows the complete use that command
+
+**clear** : clears the terminal screen
+
+Here we are working in Sky130_fd_sc_hd PDK varient. where, "sky130" is process name or node name."fd" is a foundary name (skyWater foundary)."sc" means standerd cell librery files and the last one "hd" stands for high density(basically one type of varient).
+
+Sky130_fd_sc_hd varient contains many technology files like verilog, spice, techlef, meglef,mag,gds,cdl,lib,lef,etc. (techlef file contains the layer information).
+
+
+### <h1 id="header-1_3_2">Design Preparation Step</h1>
+when we enter in the OpenLANE, we have to use flow.tcl because as a name says, it will goes with the flow using the script. And by using interactive switch, we will do step by step process. without interactive switch, it will run complete flow from RTL to GDSII. Now OpenLANE is open and we can see that prompt will change now.
+
+
+
+
 
 
 
