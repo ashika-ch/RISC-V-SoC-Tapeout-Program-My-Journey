@@ -4523,6 +4523,383 @@ Sky130_fd_sc_hd varient contains many technology files like verilog, spice, tech
 ### <h1 id="header-1_3_2">Design Preparation Step</h1>
 when we enter in the OpenLANE, we have to use flow.tcl because as a name says, it will goes with the flow using the script. And by using interactive switch, we will do step by step process. without interactive switch, it will run complete flow from RTL to GDSII. Now OpenLANE is open and we can see that prompt will change now.
 
+<img width="1280" height="768" alt="Screenshot from 2025-11-01 11-55-29" src="https://github.com/user-attachments/assets/7b16e202-7fbf-4a4c-8105-b7ea260f62c0" />
+
+Now we have to input all the packages which required to run the flow.
+
+Now, here we are ready to execute the command.
+
+Now, if we are going into the design folder in openlane, there are nearly 30-40 designs are already builted. Out of them we can open any of the design. for example, here we are opening the picorv32a.v design. In this design we can see many files are available. i.e., scr, config.tcl, etc. This config.tlc file contains every details about the design. for example, details about enrollment, clock period, clock period port etc.
+
+
+Here we can see that the time period is set to the 5.00 nsec. but is we see in the openlane sky130_fd_sc_hd folder, the period is set about 24 nsec. so it is not override to the main file. If it override then give first priority to the main folder.
+
+Now, in openlane, we are going to run the synthesis, but before synthesis, we have to prepare design setup stage. for that command is ``` prep -design picorv32a```
+
+so, here it is shown that preparation is completed.
+
+
+### <h1 id="header-1_3_3">Review files after design prep and run synthesis</h1>
+
+After completing the preparation, in the picorv32a file, the run terictory is created. Inside the folder, Today's date is created. so in this terictory some folders are available which is required for openlane.
+
+In the temp file, merged.lef file is available which was created in preparation time. if we open this merged.lef file, we get all the wire or layer level and cell level information.
+
+While, in the result folder is empty because till we have not run anything and in the report folder all the folders are there about synthesis, placement, floorplanning,cts,routing,magic,lvs.
+
+now here also one config.tcl file is available similar like design folder. But this config.tcl file contains all default parameter taken by the run.
+
+when we make some change in the origional configuration and then we run, for example if we make a change in core utilization in the floorplanning and then we run the floorplanning, at this time in the congig.tcl file, the core utility will change and by cross checking it we can check that the modification is reflected in the exicution or not.
+
+Now coming to the openlane, we are going to run the synthesis. for that command is ```run_synthesis``` It will take some 3-4 mnts to run the synthesis and finally synthesis will complited.
+<img width="1280" height="768" alt="Screenshot from 2025-11-01 11-55-36" src="https://github.com/user-attachments/assets/bf687e1b-1ec6-47c6-b2a2-5b2e54d5637d" />
+<img width="1280" height="768" alt="Screenshot from 2025-11-01 11-56-05" src="https://github.com/user-attachments/assets/c7fa6a5f-b03e-4008-9b1a-b237637d43ff" />
+
+### <h1 id="header-1_3_5">Steps to characterize synthesis results</h1>
+
+From the data of synthesis, total number of counter D_flip-flops is 1613. and the number of cells is 18036.
+
+<img width="1280" height="768" alt="Screenshot from 2025-11-01 12-09-02" src="https://github.com/user-attachments/assets/414f38a6-4ce0-482a-bddf-a4784cca2b86" />
+
+So, the flop ratio = (number of flip flops)/(number of total cell).
+
+So, the flop ratio is 8.94%.
+
+Before run, we saw that the result folder is empty. but now, after running the synthesis, we can see that all the mapping have been done by ABC.
+
+# <h2 id="header-2">Day 2 - Good floor planning considerations</h2>	 
+## <h2 id="header-2_1">Chip Floor planning consideration</h2>
+### <h2 id="header-2_1_1">Utilization factor and aspect ratio</h2>
+
+In this section we will try to cover up the width and height of Core and Die. It is the first step in physical design flow to find out the width and height. Let's begin with a netlist, netlist  is two flipflops and have a simple combination logic in between. A netlist describes the connectivity of an electronic design. Here, we dependent on the dimensions of the logic gates(AND & OR) and particular flipflop. Now, let's convert the symbols into physical dimensions. We are interested in the dimensions of the Core and Die not in the dimensions of the wires. 
+
+Let's standard cell have dimensions of 1unit*1unit
+
+So, area= 1 Sq. units
+
+Asuume same area for the flipflop as well = 1 Sq. units
+
+with help of these dimensions and netlist let's calculate the area occupied by the netlist on a silicon wafer.
+
+<img width="868" height="640" alt="image" src="https://github.com/user-attachments/assets/a266eb12-7762-4148-ba76-f19699be5673" />
+
+Befor that will remove all the wires and bring all the flip flops and logic gates in a single plate. So after combining them together width and length will be 2 Sq. units each and if we calculate the total area the it will be 4 Sq. units. So now we have the rough calculation of minimum area occupied by the netlist.
+
+<img width="343" height="296" alt="image" src="https://github.com/user-attachments/assets/0759584d-17bd-444e-84c6-af94733db3d5" />
+
+
+What is 'Core' and 'Die' section of a chip?
+
+Let's have a silicon wafer on which all the logics are implemented. In thes one section is refered as 'Die' and inside the Die we have the Core. 
+
+A **Die** which consists of core, is small semicondcutor material  specimen on which the fundamental circuit is fabricated.
+
+A '**Core** is the section of the chip where the fundamental logic of the design is placed.
+
+<img width="500" height="447" alt="image" src="https://github.com/user-attachments/assets/e0a42ff8-56d4-4442-ad68-1235f731ffb6" />
+
+Now, Let's try to place that particular logic inside the core. The netlist will occupy the whole area inside the core it means it utilizes the core 100%. From this we can calculate the utilisation factor which is given by,
+
+            Utilization Factor = Area occupied by netlist / Total area of the core
+	   
+     lets put the dimensions we have, we get
+     
+     Utilization factor = 4*1sq.unit / 2unit *2unit
+     
+			= 4sq unit /  4sq unit
+
+So, utilization factor = 1 (It means core has utilized all the area and no spane left)
+
+Aspect Ratio = Height /  width =  2 unit /  2unit =  1
+
+Whenever Aspect Ratio is 1 it signifies that chip is square shaped. When it is not 1 it means the chip is in rectangular shape.
+
+<img width="500" height="447" alt="image" src="https://github.com/user-attachments/assets/36a6c778-d114-4b52-874c-8788f139a2e4" />
+
+For example, Lets take another dimensions of the width= 4unit and height = 2unit. So from the above formula of utilization factor we it equal to 0.5 which means the chip has not covered the whole area of the core and aspect ratio is also 0.5  which means the chip is rectangular in shape.
+
+The leftover area can be used to placed some additional cells like buffers or something else.
+
+<img width="666" height="351" alt="image" src="https://github.com/user-attachments/assets/c333cdd3-1c07-4932-b926-67224af011a3" />
+
+### <h2 id="header-2_1_2">Utilization factor and aspect ratio</h2>
+
+Lets take another example for a square chip wth dimensions 4*4 sq units. We will get utilization factor= 0.25 it means out of the whole chip area only 25% area is utilized by the netlistand 75% is available for additional cells which can be use for routing in which we will have layering. Aspect ratio we get = 1 it means chip is square in shape.
+
+<img width="678" height="605" alt="image" src="https://github.com/user-attachments/assets/f6918138-bc6b-4e62-b70d-b30f1b56c0d5" />
+
+**Define locations of Preplaced Cells**:-  Lets take a combinational logic which does some amount of function and assume its a huge circuit having some N Logic gates so let's devide it into some small numbers of gates. We will cut the whole circuit into two parts, and separate both of them into two blocks and both block will be implemented seperately.
+<img width="1127" height="603" alt="image" src="https://github.com/user-attachments/assets/cab5669c-b149-4cb9-859e-651024c6b002" />
+
+In both the blocks lets extend the input output pins and now we will black box the boxes and detached them. After black boxing, the upper portion is invisible from the top or invisible to the one , who is looking into the main netlist. now will seperate them out as two different IP's or modules.
+
+<img width="972" height="452" alt="image" src="https://github.com/user-attachments/assets/28ff8847-641a-4da4-bf8e-f2a32f985759" />
+
+Advantage of doing this is we can reuse them multiple times after implimenting once only. Similary there are other IP's also available for eg. Memory, Clock-gating cell, Comporator, MUX  all of these are part of the top level netlist.They recieve some signals and perform functions and deliver the outputs but the functionality of the cell is implemented only once. 
+
+The arrangement of these IP's in a chip is refferd as **floorplanning**.
+
+These IP's have user-defined locations, and hence are placed in chip before automated placement and routing are called **"pre-placed cells"**. 
+
+These cells are placed in such a way that, the placement and routing tool do not touch the location of the cell.
+
+
+### <h2 id="header-2_1_3">De-coupling capacitors</h2>
+
+**surround pre-placed cells with Decoupling capacitor**:- Let consider some circuit, which is the part of the blocks which has been described earlier. When some gate (let consider AND gate) switched from 0 to 1 or 1 to 0, considered amount of the switching current required because of available small capacitance . This capacitor should be completely charged to represent logic 1 and completly discharged to represent logic 0. Consider capacitance to be 0. Rdd,Ldd,and Lss are well defoned values. During switvhing operation, the circuit demands switching current i.e. peak current. Now, due to the presence of Rdd and Ldd, there will be a voltage drop across them and the voltage at Node 'A' would be Vdd' instead of Vdd.
+
+<img width="1014" height="595" alt="image" src="https://github.com/user-attachments/assets/c2204b6b-d833-4112-98c7-e260a72c7260" />
+
+So, due to this if ideal logic 1 = 1 volt then here practically it can be less then 1 volt i.e., 0.97 volts (Vdd'). So, for any signal to be considered as Logic '0' and '1' in the NM low and NM high range. It is danger case.
+
+<img width="1037" height="627" alt="image" src="https://github.com/user-attachments/assets/fc7e497c-c005-4d49-8ad2-1fe3036f5cc2" />
+
+To solve this problem,, we have to put De-coupling capacitor in parallel with the circuit. Every time the circuit switches, it draws current from Cd, whereas, the  RL network is used to replenish the charge into Cd. And the amount of current needed for the circuit is supplied by the De- Coupling Capacitor.
+
+<img width="970" height="605" alt="image" src="https://github.com/user-attachments/assets/8bc52c2f-bce5-4061-a119-e352279887e0" />
+
+In the chip it will look something like shown below Decoupling capacitors are placed in between the block a, block b and block c. So here in this whole block it has been ensured that supply is being done by the de-coupling capacitor. Once we are done with this we have taken care of the local communication.
+
+<img width="860" height="672" alt="image" src="https://github.com/user-attachments/assets/d86cf9bf-3ed6-4e75-8fb2-a03d0ef4bcc3" />
+
+### <h2 id="header-2_1_4">Power planning</h2>
+
+Now let's consider that local circuitory and keep it as a black box and it can be repeat multiple times and there is some logic present at the boundaries also and the problem of current demand was solved by de-coupling capacitor. There is signal which is send from driver to load and the signal is basically logic 0 to logic 1. Here we need to maintain the particular driver to load line with same signal so that the load recieves the same. Now power supply is applied. Now assume 16 bit bus has to retain the same signal from driver to the load. so it should get the sufficient power from the supply. But at this bus, there is no de-coupling capacitor is available because it is not physible to put capacitor at all over the place. now, power supply is far away from the bus, that is why some voltage drop between them will occur definetly.
+
+<img width="907" height="653" alt="image" src="https://github.com/user-attachments/assets/ab145ac9-7365-45e9-b6b1-212817bfe251" />
+
+When we say one particular line of 16-bit bus is logic 1 it says that the capacitor is being charged to Vdd, and whenever we say logic 0 it says that the capacitor is discharged to ground.Let consider this 16 bit bus connected to inverter. So, all the capacitor are initially charged will get discharged and vice-versa due to inverter.
+
+<img width="957" height="607" alt="image" src="https://github.com/user-attachments/assets/a2d0d0dd-a0b5-428d-9b8c-76ee35c6c6bb" />
+
+But the problem is occurs due to all capacitor is connected to the single ground. This will cause a bump in 'ground' tap point during discharging. That bump is called as Ground Bounce. If the size of the bump exceeds the noise margin levelit might enter into an undefined state and due to undefined state it can either go to logic 1 or logic 0. So here thing becomes unpredictable
+
+<img width="988" height="617" alt="image" src="https://github.com/user-attachments/assets/c9a4dc92-5af7-439c-abf2-52e77b8964eb" />
+
+Also , all capacitors which were'0' volts will have to charge to 'V'volts through single 'vdd'tap point. This will cause lowering of voltage at Vdd tap point. As long as this voltage drop is in noise margin level we are good enough but if it goes into an undefined region then things become unpredictable.
+
+<img width="981" height="612" alt="image" src="https://github.com/user-attachments/assets/cb9d2960-9fd2-4bcc-af5f-30ccc615fc89" />
+
+The phenomenon we have seen was causing the lowering of the supply voltage,this problem occured because power has applied to one point only. The solution of the problem is use multiple power supply. So, every block will take charge from neartest power supply and similarly dump the charge to the nearer ground. this type of power supply is called **mesh**.
+
+<img width="895" height="697" alt="image" src="https://github.com/user-attachments/assets/bde03a8c-0b3a-4670-8425-3add3046edb4" />
+And the power planning is shown below,
+<img width="1117" height="661" alt="image" src="https://github.com/user-attachments/assets/9083cea7-a9b8-459b-8452-de4536b1537e" />
+
+### <h2 id="header-2_1_5">Pin placement and logical cell placement blockage</h2>
+
+**Pin Placement**
+
+Lets take below designs for example that needs to be implemented. Here first circuit is driven by clk1  and second circuit is driven by clk2 and both has different inputs Din1 and Din2 respectively and outputs as Dout1 and Dout2.Along with that we have some preplaced cells as well as Blocka which recieves inputs from Din1 second input from Din2. We have another preplced cell as Blockb Which recieves input from clk1 and clk2 and provides a clk output. So currently we have 4 input ports Din1,Din2,Clk1,Clk2 and 3 output ports Dout1,ClkOut,Dout2
+<img width="902" height="577" alt="image" src="https://github.com/user-attachments/assets/56be9ea8-6d78-471d-9a04-b0a904e04449" />
+
+let's have one more design that needs to be implemented. this types of circuits are very much helpful to understand the timing analysis of inter clocks.
+now complete design becomes like given below which has 6 input ports and 5 output ports. The connectivity information between the gates is coded using VHDL/Verilog language and is called as 'Netlist'.
+<img width="791" height="731" alt="image" src="https://github.com/user-attachments/assets/fd629b0f-f353-4a51-9159-e41d4e1be917" />
+
+Let's put this netlist in the core which we have designed before and let's try to fill this empty area between core and die with the pin information. The frontend team who decides the netlist connectivity input and output and the backend team who done the pin placements. So according to the pin placements, we have to locate the preplaced blocks nearer to the inputs of the preplaced blocks.
+<img width="1100" height="687" alt="image" src="https://github.com/user-attachments/assets/13135b4d-a251-468d-9efb-07767b7ab335" />
+
+Here one thing that we noticed is that clock-in and clock-out pins are bigger in size as compared to input and output pins. reason behind this is that, input clocks are conntinuously provides the signal to the every elements of the chip and output clock should out the signal as fast as possible. So, we need least resistance path for the clocks inputs and clocks outputs. So, bigger the size, lower the resistance.
+
+One more thing is need to take care about is that, this pin placement area is blocked for routing and cell placements. so we nned to do logical cell placement blockage. this blockage is shoown in above image in between pins.
+
+So, floor plan is ready for Placement and Routing step.
+
+### <h2 id="header-2_1_6">Steps to run floorplan using OpenLANE</h2>
+
+Before run the floorplanning, we required some switches for the floorplanning. these we can get from the configuration from openlane.
+
+<img width="1280" height="768" alt="Screenshot from 2025-11-01 12-11-48" src="https://github.com/user-attachments/assets/f85e8858-89ed-4e37-887d-728065c27c12" />
+
+Here we can see that the core utilization ratio is 50% (bydefault) and aspect ratio is 1 (bydefault). similarly other information is also given. But it is not neccessory to take these values. we need to change these value as per the given requirments also.
+
+Here FP_PDN files are set the power distribution network. These switches are set in the floorplane stage bydefault in OpenLANE.
+
+<img width="1280" height="768" alt="Screenshot from 2025-11-01 12-12-26" src="https://github.com/user-attachments/assets/ae3925e8-d95d-4f00-9070-6f9b9692c88e" />
+
+Here, (FP_IO MODE) 1, 0 means pin positioning is random but it is on equal distance.
+
+In the OpenLANE lower priority is given to system default (floorplanning.tcl), the next priority is given to config.tcl and then priority is given to PDK varient.tcl (sky130A_sky130_fd_sc_hd_congig.tcl).
+
+Now we see, with this settings how floorplan run.
+
+### <h2 id="header-2_1_7">Review floorplan files and steps to view floorplan</h2>
+
+In the run folder, we can see the connfig.tcl file. this file contains all the configuration that are taken by the flow. if we open the config.tcl file, then we can see that which are the parameters are accepted in the current flow.
+
+To watch how floorplane looks, we have to go in the results. in the result, one def( design exchange formate) file is available. if we open this file, we can see all information about die area (0 0) (660685 671405), unit distance in micron (1000). it means 1 micron means 1000 databased units. so 660685 and 671405 are databased units. and if we devide this by 1000 then we can get the dimensions of chips in micrometer.
+
+<img width="1280" height="768" alt="Screenshot from 2025-11-01 12-18-14" src="https://github.com/user-attachments/assets/5def17a6-89cd-4491-9950-2a55afad9402" />
+<img width="1280" height="768" alt="Screenshot from 2025-11-01 12-19-05" src="https://github.com/user-attachments/assets/e9e7664c-f257-4b1b-af96-582c0abceef2" />
+
+so, the width of chip is 660.685 micrometer and height of the chip is 671.405 micrometer.
+
+To see the actual layout after the flow, we have to open the magic file by adding the command ```magic -T /home/kunalg123/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def```
+
+And then after pressing the enter, Magic file will open. here we can see the layout.
+
+<img width="1920" height="1043" alt="Screenshot from 2025-11-01 12-56-19" src="https://github.com/user-attachments/assets/0c802979-d3c3-4032-bdce-f0eca002d982" />
+
+### <h2 id="header-2_1_8">Review floorplan layout in Magic</h2>
+
+In the layout we can see that, input output pins are at equal distance.
+<img width="1920" height="1043" alt="Screenshot from 2025-11-01 12-57-56" src="https://github.com/user-attachments/assets/a04566dd-0dc9-4ea3-8247-14858013ff2b" />
+
+after selecting (To select object, first click on the object and then press 's' from keyboard. the object will hight lited. to zoom in the object, click on the object and then press 'z' and for zoom out press 'sft+z') one input pin, if we want to check the location or to know at on which layer it is available, we have to open tkcon window and type "what". it will shows all the details about that perticular pin.
+
+<img width="1920" height="1043" alt="Screenshot from 2025-11-01 12-59-42" src="https://github.com/user-attachments/assets/8bfb2304-daca-445e-a75c-28e25ef4225c" />
+
+after selecting (To select object, first click on the object and then press 's' from keyboard. the object will hight lited. to zoom in the object, click on the object and then press 'z' and for zoom out press 'sft+z') one input pin, if we want to check the location or to know at on which layer it is available, we have to open tkcon window and type "what". it will shows all the details about that perticular pin.
+so, it show that the pin is in the metal 3.similarly doing for the vertical pins, we find that this pin is at metal 2.
+
+<img width="1920" height="1043" alt="Screenshot from 2025-11-01 13-00-24" src="https://github.com/user-attachments/assets/8fd25980-3fca-4dbd-85d1-1d1b33698de4" />
+<img width="1920" height="1043" alt="Screenshot from 2025-11-01 12-59-59" src="https://github.com/user-attachments/assets/d590d7e8-287c-487f-b9f7-cd013e51b697" />
+
+Along with the side rows,the Decap cells are arranged at the border of the side rows.
+<img width="1920" height="1043" alt="Screenshot from 2025-11-01 13-02-14" src="https://github.com/user-attachments/assets/e0818edf-5971-41d6-b74a-398356afd8c5" />
+
+here we can see that first standerd cells is for buffer 1. similarly other cells are for buffer 2, AND gate etc.
+
+## <h2 id="header-2_2">Library building and Placement</h2>
+### <h2 id="header-2_2_1">Netlist binding and initial place design</h2>
+
+**Bind netlist with physical cells**:- Lets we have the netlist of gates and shape of these gates represents the functionality of this gates. Foe example we have NOT gate as a tringular shape but in reality it is a box with physical dimensions it has width and height.Similarly for AND gate it also has a box shape in reality, Flipfops are also square boxes.So, we have given the physical dimensions to all the gates and flipflops. For everycomponent of the netlist we will give the particular shape with particular dimensions because ir real world the shapes like AND,OR gates does not exists so we make them as square all the blocks also have the width and height and proper shape.
+
+<img width="1027" height="671" alt="image" src="https://github.com/user-attachments/assets/b540c19d-af7d-42c3-a651-7ed86cf238d0" />
+
+Now we will remove the wires,all the gates, flipflops and blocks are present in the shelf which is called as **Library**.
+
+A library is a place where you can find all kind of books all the gates,f/f are books here. Library also has the timing information of the perticular book like delay of the gates. Library can be devides into two sublibraries, One library consist of shape and size and other library might consist only of the delay information. Library has the various flavours of each and  every cell. Like same cell can have bigger in size in different self, bigger the size of cell lesser the resestnce path so it will work faster and will have lesser delay. We can pick up from these what we want based on the timing condition and available space on the floorplan.
+
+<img width="1261" height="337" alt="image" src="https://github.com/user-attachments/assets/fda5e8df-e84a-48a7-813a-1de4ea6e9627" />
+
+**Placement**:- Once we have given proper shape and size to each and every gates the next step is to take those particular shapes ans sizes and place it on the floorplan. We have the floorplan with inout and output ports, we have particular netlist, and we have particular size given to each component of this netlist. So we have the physical view of the logic gates. Next step is to place the netlist onto the floorplan. We have to take the connectivity information from the netlist and design the physical view gates on the floorplan.
+
+<img width="1297" height="517" alt="image" src="https://github.com/user-attachments/assets/8c942555-f2ac-46c7-b9c0-d469faf634e3" />
+
+Now, we have the floorplan where we have the preplaced cells from the previous slides, Plcement will make syre that the pre placed cells locations are not affected they are kept as it as and the second thing which will be taken care of that is no cell should be placed over the pre-placed cells. We need to place the physical view of the netlist onto the floorplan in such a fashion that logical connectivity should be maintained and that particular circuit should interact with their input and output ports to maintain the timing and the delay will be minimal.
+
+<img width="1302" height="651" alt="image" src="https://github.com/user-attachments/assets/7a7cf71d-2259-479e-be76-d7c6240f875b" />
+
+
+Here first we will see the arrangement of the remaining parts from the netlist onto the floorplan.We have placed all the element in such manner that all elements are closed to it's input and output pins.
+But, the distance of FF1 of Stage 4 and Din4 is still far them others. By optimizing the placement, we can solve this problem.
+
+<img width="1305" height="633" alt="image" src="https://github.com/user-attachments/assets/061d2c02-4750-47c5-ac43-a9ab06bc6f4c" />
+<img width="1920" height="1043" alt="Screenshot from 2025-11-01 13-15-30" src="https://github.com/user-attachments/assets/72b12a7c-da9a-4081-a2ef-f04900da69aa" />
+<img width="1920" height="1043" alt="Screenshot from 2025-11-01 13-15-49" src="https://github.com/user-attachments/assets/a927a17c-2019-42a8-8a66-c5fdc08f7ba5" />
+
+
+
+### <h2 id="header-2_2_2">Optimize placement using estimated wire-length and capacitance</h2>
+
+**Optimize Plecement:-** In optimize placement we will resolve the problem of distancing.Lrt's take the example of FF1 to Din2. There must be a wire going from Din2 to FF1 but before going into routing the desing or wiring we will try to estimate the capacitances. If we lokk the capacitance from Din2 to FF1 it is every huge because wire length is huge in that case even the resutance will also be huge because of that length. If we send the signal from Din2 then it will be difficult for FF1 to catch that input because distance is large. So we can place some intermediate steps to maitain the Signal integrity. By this the input is succesfully driven to the FF1 from Din2. These intermediate steps are called here Repeaters , Repeaters are basically buffers that will recondition the original signal and make a bew signal which replicate the original signal and send it forward this process repeates untill we reach to the actual cell where we want to send the input in this way signal integrity is maintained. By using repeaters we resolve the problem of signal integrity but there will be a loose of area because more and more repeaters are used more area will be used of the particular floorplan.
+
+<img width="1297" height="637" alt="image" src="https://github.com/user-attachments/assets/0b6388fa-59ab-452d-99ae-450e6f83f814" />
+<img width="1920" height="1043" alt="Screenshot from 2025-11-01 13-15-41" src="https://github.com/user-attachments/assets/59dae906-d40e-4886-bf4f-6744e5c68d29" />
+
+
+In the stage 1, there is no need of any repeater to transmit the signal. But in stage 2, due to high distance, the lenth of wire is high and signal is not transmitted in perticular range. so we required repeater.
+<img width="1297" height="637" alt="image" src="https://github.com/user-attachments/assets/8e5298f9-aa1d-4161-b117-78906cd0a013" />
+
+### <h2 id="header-2_2_3">Final placement optimization</h2>
+
+As similar to stage 2, in Stage 3 also we required the buffer between gate2 and FF2.
+
+<img width="1295" height="622" alt="image" src="https://github.com/user-attachments/assets/acb9a063-8ce4-4fb4-b8e7-78630cb17254" />
+
+Stage 4 is bit tricky as compared to other stages.Now we have to check that, what we have done is correct or not. For that we need to do Timing analysis by considering the ideal clocks and according to the data of analysis, we will understand that, the placement is correct or not.
+
+<img width="1306" height="631" alt="image" src="https://github.com/user-attachments/assets/72f7e964-1ccb-46d0-b51e-6c2bbaaa9759" />
+
+### <h2 id="header-2_2_4">Need for libraries and characterization</h2>
+
+Every ICdesign Flow needs to go through the several steps. First step to go through is Logic Synthesis, let's say if we have a functionality which is coded in a form of an RTL so first we need to convert the functionality into legal hardware is refered to as Logic Synthesis. Ouput of the logic synthesis is arrangement of gates that will represent the original functionality that has been described using an RTL. 
+Next step of logic synthesis is Floorplaning, in this we omport the output of logic synthesis and decide the size of the Core and Die. The next step after floorplaning is Placement, in this we take the particular logic cell send place them on the chip in such a fashion that initial timing is better. Next step is CTS(Clock tree synthesis), in this we take care that clk should reach each and every signal at the same time also take care of each clk signal has equal rise and fall.Next step is Routing, routing has to go through the certain flow dependendent on the characterization of the flip flop.And now comes the last step STA(Static timing analysis), in this we try to see the set up time, hold time, maximum achieved frequency of the circuit.
+One common thing across all stages 'GATES or Cells'.
+
+### <h2 id="header-2_2_5">Congestion aware placement using RePlAce</h2>
+
+Right now we are not constrain about timing, but constrain about the congestion. so, we are making the congrstion is less.
+
+The placement is donne in two stages. Global and detailed. In global placement, legalization is not happened but after detailed placement legalization will be done.
+
+When we run the placement, first Global placement is happens. main objective of glibal placement is to reducing the length of wires.
+
+Now opening the Magic file to see actual view of standerd cells placement.And the actual view in the magic file is given below.
+
+<img width="1920" height="1043" alt="Screenshot from 2025-11-01 13-24-01" src="https://github.com/user-attachments/assets/448b1c77-d367-420e-ad83-e3936f83cc50" />
+
+If we zooom into this, we find the buffers, gates, flip flops in this.
+<img width="1920" height="1043" alt="Screenshot from 2025-11-01 13-23-44" src="https://github.com/user-attachments/assets/b4d6bf32-5be1-4c0b-a119-af7a3fe9b810" />
+
+## <h2 id="header-2_3">Cell design and characterization flows</h2>
+### <h2 id="header-2_3_1">Inputs for cell design flow</h2>
+
+In Cell Design Flow, Gates, flipflops, buffers are named as 'Standard Cells'. These standard cells are being placed in the section called as 'Library'.And in the library many other cells are available which have same functionality but the size is different.
+<img width="1122" height="718" alt="image" src="https://github.com/user-attachments/assets/ab48a87c-31b7-4106-aecc-faef13eb08b4" />
+
+If you lokk into one of the inverter from the library the cell design flowis as follows
+
+The inverter has to represented in form of the shape, drive strength, power charracteristic and so on. Here cell design flow is devided into three parts.
+
+1. Inputs
+
+2. Design steps
+
+3. Outputs
+
+**1)Inputs**:- Inputs required for cell design is PDKs, DRC and LVS rules SPICE models, library and user defined specs. In DRC& LVS rules tech file is provided which contains design rules and actual values. Rules can be converted in to code. SPICE MODEL tells about threshold voltage equation.
+
+![image](https://github.com/kmkalpana2001/DIGITAL-VLSI-SOC-DESIGN-AND-PLANNING/assets/165163110/2fb42be5-76e2-4017-9ff9-4fb23306b24e)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
