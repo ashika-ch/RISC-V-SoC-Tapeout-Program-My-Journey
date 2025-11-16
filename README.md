@@ -6147,9 +6147,10 @@ The algorithm requires the determination of the cost associated with each APC an
 </details>
 
 
-<details> Week 7 - BabySoC Physical Design & Post-Route SPEF Generation
-
-## Task-13: OpenRoad Physical Design
+<details>
+	<summary> Week 7 - BabySoC Physical Design & Post-Route SPEF Generation </summary>
+	
+## OpenRoad Physical Design
 
 #### Path to Zetta-Scale Computing
 
